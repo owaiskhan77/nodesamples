@@ -1,0 +1,1127 @@
+[
+    {
+        "id": "fe058ad1849932aa",
+        "type": "tab",
+        "label": "test",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "99999b8a6931f0b2",
+        "type": "tab",
+        "label": "SmartMeterUI",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d4d2503845e968b3",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7e34b34baabd0adc",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 24,
+                "cy": 6,
+                "px": 1,
+                "py": 1
+            }
+        }
+    },
+    {
+        "id": "afea3e73df80298e",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "5ad478847c2d5ed0",
+        "type": "ui_group",
+        "name": "Configure Days",
+        "tab": "afea3e73df80298e",
+        "order": 1,
+        "disp": true,
+        "width": 5,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "91e0bd3a7a01f1c1",
+        "type": "ui_group",
+        "name": "Srinagar Smart Meters",
+        "tab": "afea3e73df80298e",
+        "order": 2,
+        "disp": true,
+        "width": 5,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "79d43152ec87748f",
+        "type": "ui_group",
+        "name": "Jammu Smart Meters",
+        "tab": "afea3e73df80298e",
+        "order": 3,
+        "disp": true,
+        "width": 5,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "75f5394b01c07d88",
+        "type": "ui_group",
+        "name": "Graphs",
+        "tab": "afea3e73df80298e",
+        "order": 4,
+        "disp": true,
+        "width": 5,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "806d55723cea2812",
+        "type": "file in",
+        "z": "fe058ad1849932aa",
+        "name": "Input File",
+        "filename": "D:\\jlab\\smart.csv",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 260,
+        "y": 120,
+        "wires": [
+            [
+                "46fbd40ca18f2a4c",
+                "bae65897d837f9a7"
+            ]
+        ]
+    },
+    {
+        "id": "46fbd40ca18f2a4c",
+        "type": "csv to json ext",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "version": "0.1",
+        "source": "filename",
+        "delimiter": ",",
+        "quote": "\"",
+        "escape": "\"",
+        "ignoreEmpty": false,
+        "checkType": true,
+        "trim": true,
+        "noheader": false,
+        "includeColumns": "",
+        "headers": "",
+        "debug": false,
+        "x": 350,
+        "y": 20,
+        "wires": [
+            [
+                "77cd76076c4deaaa",
+                "b30f8f98cb77a40e"
+            ]
+        ]
+    },
+    {
+        "id": "77cd76076c4deaaa",
+        "type": "debug",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload{\"0\"&$substring($string(Description),0,5):$sum(`Transaction Amount(INR)`)}",
+        "targetType": "jsonata",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "b30f8f98cb77a40e",
+        "type": "debug",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "2f3afc5871b19c7d",
+        "type": "file in",
+        "z": "fe058ad1849932aa",
+        "name": "Input File",
+        "filename": "D:\\python27\\022022-WITH-ADJ\\kashmir.txt",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 160,
+        "y": 240,
+        "wires": [
+            [
+                "68fd60455c976f8c"
+            ]
+        ]
+    },
+    {
+        "id": "4298bf587b3d4cea",
+        "type": "debug",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "$substring(payload{`Txn Date`:$count(Description)}\t~> $each(function($v, $n) {{\t    'date': $n,\t    'cnt': $v\t}}) ^(>cnt)[0].date,3,7)",
+        "targetType": "jsonata",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "20636cfdef7a7016",
+        "type": "csv to json ext",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "version": "0.1",
+        "source": "payload",
+        "delimiter": ",",
+        "quote": "\"",
+        "escape": "\"",
+        "ignoreEmpty": false,
+        "checkType": true,
+        "trim": true,
+        "noheader": false,
+        "includeColumns": "",
+        "headers": "",
+        "debug": false,
+        "x": 670,
+        "y": 140,
+        "wires": [
+            [
+                "4298bf587b3d4cea"
+            ]
+        ]
+    },
+    {
+        "id": "68fd60455c976f8c",
+        "type": "exec",
+        "z": "fe058ad1849932aa",
+        "command": "powershell  Get-Content",
+        "addpay": "filename",
+        "append": " -Head 50000",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 430,
+        "y": 240,
+        "wires": [
+            [
+                "20636cfdef7a7016"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "bae65897d837f9a7",
+        "type": "csv to json ext",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "version": "0.1",
+        "source": "filename",
+        "delimiter": ",",
+        "quote": "\"",
+        "escape": "\"",
+        "ignoreEmpty": false,
+        "checkType": true,
+        "trim": true,
+        "noheader": false,
+        "includeColumns": "",
+        "headers": "",
+        "debug": false,
+        "x": 310,
+        "y": 360,
+        "wires": [
+            [
+                "5b45bc94d79bbc3b",
+                "f0d5be7807c56477"
+            ]
+        ]
+    },
+    {
+        "id": "5b45bc94d79bbc3b",
+        "type": "debug",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "(\t$a:=(payload[ \t    (Collector ~>/jm/i) and \t    (`Status Code`='Normal')\t     and \t    ($floor(\t        ($toMillis($now())-$toMillis(`Last Billable Read`,'[D]-[M]-[Y] [H#01]:[m01]')\t        )/86400000)) <= 29 ]\t{Collector:$count(Meter)});\t$b:={'Total Meters':$sum($each($a,function($v,$k){$v}))};\t$merge([$a,$b]))",
+        "targetType": "jsonata",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "96092db84b8ab2b4",
+        "type": "inject",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 20,
+        "wires": [
+            [
+                "806d55723cea2812"
+            ]
+        ]
+    },
+    {
+        "id": "f0d5be7807c56477",
+        "type": "debug",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 450,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "b71ea77d46ce47f4",
+        "type": "ui_button",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "group": "5ad478847c2d5ed0",
+        "order": 3,
+        "width": 5,
+        "height": 1,
+        "passthru": false,
+        "label": "Get",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "a",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 70,
+        "y": 40,
+        "wires": [
+            [
+                "1b4a5f0ed940afa6"
+            ]
+        ]
+    },
+    {
+        "id": "1b4a5f0ed940afa6",
+        "type": "file in",
+        "z": "99999b8a6931f0b2",
+        "name": "Input File",
+        "filename": "D:\\jlab\\report.csv",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 220,
+        "y": 40,
+        "wires": [
+            [
+                "21ab12966980f988"
+            ]
+        ]
+    },
+    {
+        "id": "21ab12966980f988",
+        "type": "csv to json ext",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "version": "0.1",
+        "source": "filename",
+        "delimiter": ",",
+        "quote": "\"",
+        "escape": "\"",
+        "ignoreEmpty": false,
+        "checkType": true,
+        "trim": true,
+        "noheader": false,
+        "includeColumns": "",
+        "headers": "",
+        "debug": false,
+        "x": 390,
+        "y": 40,
+        "wires": [
+            [
+                "d184b79f9555777b",
+                "30ac7b69e563703e",
+                "e41cd9321de563aa",
+                "f86cfdd578131cda"
+            ]
+        ]
+    },
+    {
+        "id": "d184b79f9555777b",
+        "type": "debug",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "30ac7b69e563703e",
+        "type": "change",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "(\t$a:=(payload[ \t    (Meter.$string().$substring(0,1)='4') and \t    ($floor(\t        ($toMillis($now())-$toMillis(`Last Billable Read`,'[D]-[M]-[Y] [H#01]:[m01]:[s01]')\t        )/86400000)) <=  $flowContext('days') ]\t{Collector:$count(Meter)});\t$b:={'Total Meters':$sum($each($a,function($v,$k){$v}))};\t$c:=$merge([$a,$b]);\t$d:=$each($c,function($v,$k){'Collector:'&$k&',Count:'&$v});\t$e:=$d.[$split(',')]{$[0]:$[1]};\t$f:=$each($e,function($v,$k){{$k.$split(':')[0]:$k.$split(':')[1],$v.$split(':')[0]:$v.$split(':')[1]}});\t\t\t)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 620,
+        "y": 100,
+        "wires": [
+            [
+                "a217bfdc32724f4e"
+            ]
+        ]
+    },
+    {
+        "id": "0ee97373942df155",
+        "type": "ui_button",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "group": "5ad478847c2d5ed0",
+        "order": 2,
+        "width": 5,
+        "height": 1,
+        "passthru": false,
+        "label": "Reset",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "[{}]",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 90,
+        "y": 460,
+        "wires": [
+            [
+                "a217bfdc32724f4e",
+                "6741d7d9949222f3",
+                "dd2d19659f772bd6",
+                "49ec4c4470a0148d"
+            ]
+        ]
+    },
+    {
+        "id": "a217bfdc32724f4e",
+        "type": "ui_table",
+        "z": "99999b8a6931f0b2",
+        "group": "91e0bd3a7a01f1c1",
+        "name": "Srinagar Collectors",
+        "order": 1,
+        "width": 5,
+        "height": 7,
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 730,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "6741d7d9949222f3",
+        "type": "ui_table",
+        "z": "99999b8a6931f0b2",
+        "group": "79d43152ec87748f",
+        "name": "Jammu Collectors",
+        "order": 1,
+        "width": 5,
+        "height": 9,
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 730,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "e41cd9321de563aa",
+        "type": "change",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "(\t$a:=(payload[ \t    (Meter.$string().$substring(0,1)='3') and \t    ($floor(\t        ($toMillis($now())-$toMillis(`Last Billable Read`,'[D]-[M]-[Y] [H#01]:[m01]:[s01]')\t        )/86400000)) <= $flowContext('days') ]\t{Collector:$count(Meter)});\t$b:={'Total Meters':$sum($each($a,function($v,$k){$v}))};\t$c:=$merge([$a,$b]);\t$d:=$each($c,function($v,$k){'Collector:'&$k&',Count:'&$v});\t$e:=$d.[$split(',')]{$[0]:$[1]};\t$f:=$each($e,function($v,$k){{$k.$split(':')[0]:$k.$split(':')[1],$v.$split(':')[0]:$v.$split(':')[1]}});\t\t\t)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 180,
+        "wires": [
+            [
+                "6741d7d9949222f3"
+            ]
+        ]
+    },
+    {
+        "id": "95e1a5150b7de370",
+        "type": "ui_numeric",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "label": "Select Last Billable Read Days",
+        "tooltip": "",
+        "group": "5ad478847c2d5ed0",
+        "order": 1,
+        "width": 5,
+        "height": 1,
+        "wrap": false,
+        "passthru": true,
+        "topic": "topic",
+        "topicType": "msg",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "120",
+        "step": 1,
+        "className": "",
+        "x": 170,
+        "y": 140,
+        "wires": [
+            [
+                "a0af3566ffceb3f8"
+            ]
+        ]
+    },
+    {
+        "id": "a0af3566ffceb3f8",
+        "type": "change",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "days",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 330,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dd2d19659f772bd6",
+        "type": "change",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "days",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 170,
+        "y": 320,
+        "wires": [
+            [
+                "95e1a5150b7de370"
+            ]
+        ]
+    },
+    {
+        "id": "f86cfdd578131cda",
+        "type": "change",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[{\"labels\":$distinct(payload.(\t        $substring($string(Meter),0,1)=\"4\" ? 'Srinagar'\t    : ($substring($string(Meter),0,1)=\"3\" ? 'Jammu' : 'NA'))\t\t),\t \"data\":$each(payload{`Status Code` :$each({\t    $substring($string(Meter),0,1):$count(Meter)},\t    function($v){$v}) },function($v){$v}),\t \"series\":$keys(payload{`Status Code`:{$substring($string(Meter),0,1):$count(Meter)}})\t}]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 480,
+        "wires": [
+            [
+                "7964fdb9182f6fc4",
+                "2a9f0773f744b62a"
+            ]
+        ]
+    },
+    {
+        "id": "7964fdb9182f6fc4",
+        "type": "ui_chart",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "group": "75f5394b01c07d88",
+        "order": 1,
+        "width": 5,
+        "height": 5,
+        "label": "All Meter Details",
+        "chartType": "bar",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "0",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 720,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2a9f0773f744b62a",
+        "type": "debug",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "49ec4c4470a0148d",
+        "type": "change",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[{\"labels\":[],\"data\":[],\"series\":[]}]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 260,
+        "y": 500,
+        "wires": [
+            [
+                "7964fdb9182f6fc4",
+                "2a9f0773f744b62a"
+            ]
+        ]
+    },
+    {
+        "id": "d001dc53.264018",
+        "type": "template",
+        "z": "d4d2503845e968b3",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "yaml",
+        "syntax": "mustache",
+        "template": "canada:\n    fruits:\n        - bleuet\n        - framboise\n    légumes:\n        - tomate\n        - patate\n        - navet\nmexique:\n    fruits:\n        - café\n        - orange\n    légumes:\n        - avocats",
+        "output": "str",
+        "x": 300,
+        "y": 100,
+        "wires": [
+            [
+                "9e173897.ccab38"
+            ]
+        ]
+    },
+    {
+        "id": "a631ad2e.febf2",
+        "type": "inject",
+        "z": "d4d2503845e968b3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 100,
+        "wires": [
+            [
+                "d001dc53.264018"
+            ]
+        ]
+    },
+    {
+        "id": "9e173897.ccab38",
+        "type": "yaml",
+        "z": "d4d2503845e968b3",
+        "name": "",
+        "x": 440,
+        "y": 100,
+        "wires": [
+            [
+                "588f9990.21743"
+            ]
+        ]
+    },
+    {
+        "id": "588f9990.21743",
+        "type": "change",
+        "z": "d4d2503845e968b3",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "food",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5d6a8619.27e0c8",
+        "type": "inject",
+        "z": "d4d2503845e968b3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "repas",
+                "vt": "flow"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": "repas",
+        "payloadType": "flow",
+        "x": 110,
+        "y": 300,
+        "wires": [
+            [
+                "3f38369a.fed952"
+            ]
+        ]
+    },
+    {
+        "id": "3f38369a.fed952",
+        "type": "debug",
+        "z": "d4d2503845e968b3",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 620,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "249e58ed.5231b8",
+        "type": "inject",
+        "z": "d4d2503845e968b3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "mexique",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": "mexique",
+        "payloadType": "str",
+        "x": 110,
+        "y": 380,
+        "wires": [
+            [
+                "6d5ef611.7e4c9"
+            ]
+        ]
+    },
+    {
+        "id": "6d5ef611.7e4c9",
+        "type": "change",
+        "z": "d4d2503845e968b3",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$lookup($flowContext('food'), payload)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 380,
+        "wires": [
+            [
+                "3f38369a.fed952"
+            ]
+        ]
+    },
+    {
+        "id": "799e8f63.f79ab8",
+        "type": "inject",
+        "z": "d4d2503845e968b3",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": "canada",
+        "payloadType": "str",
+        "x": 100,
+        "y": 420,
+        "wires": [
+            [
+                "6d5ef611.7e4c9"
+            ]
+        ]
+    },
+    {
+        "id": "ea873589.6832e8",
+        "type": "inject",
+        "z": "d4d2503845e968b3",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": "[\"mexique\", \"fruits\"]",
+        "payloadType": "json",
+        "x": 140,
+        "y": 520,
+        "wires": [
+            [
+                "cc133563.e5759"
+            ]
+        ]
+    },
+    {
+        "id": "cc133563.e5759",
+        "type": "change",
+        "z": "d4d2503845e968b3",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$lookup($flowContext('food'), payload[0]) ~> $lookup(payload[1])",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 520,
+        "wires": [
+            [
+                "3f38369a.fed952"
+            ]
+        ]
+    },
+    {
+        "id": "c19fefdd.daac4",
+        "type": "inject",
+        "z": "d4d2503845e968b3",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": "[\"canada\", \"légumes\"]",
+        "payloadType": "json",
+        "x": 150,
+        "y": 560,
+        "wires": [
+            [
+                "cc133563.e5759"
+            ]
+        ]
+    },
+    {
+        "id": "b434fc1b.4f748",
+        "type": "comment",
+        "z": "d4d2503845e968b3",
+        "name": "Create a complex stucture",
+        "info": "",
+        "x": 140,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "f15b4ee9.993e7",
+        "type": "comment",
+        "z": "d4d2503845e968b3",
+        "name": "Filter the structure",
+        "info": "",
+        "x": 120,
+        "y": 240,
+        "wires": []
+    }
+]
