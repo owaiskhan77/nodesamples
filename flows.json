@@ -24,6 +24,13 @@
         "env": []
     },
     {
+        "id": "2e682cfeaac5ebfa",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "7e34b34baabd0adc",
         "type": "ui_base",
         "theme": {
@@ -169,6 +176,17 @@
         "name": "Graphs",
         "tab": "afea3e73df80298e",
         "order": 4,
+        "disp": true,
+        "width": 5,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "e39596475da8114f",
+        "type": "ui_group",
+        "name": "ProgressBar",
+        "tab": "afea3e73df80298e",
+        "order": 5,
         "disp": true,
         "width": 5,
         "collapse": false,
@@ -450,7 +468,8 @@
         "y": 40,
         "wires": [
             [
-                "1b4a5f0ed940afa6"
+                "1b4a5f0ed940afa6",
+                "88afb3b01aa57023"
             ]
         ]
     },
@@ -828,6 +847,130 @@
             [
                 "7964fdb9182f6fc4",
                 "2a9f0773f744b62a"
+            ]
+        ]
+    },
+    {
+        "id": "7313a58514606374",
+        "type": "ui_template",
+        "z": "99999b8a6931f0b2",
+        "group": "e39596475da8114f",
+        "name": "html progressbar",
+        "order": 1,
+        "width": 5,
+        "height": 1,
+        "format": "<style>\n    .w3-border {\n        border: 1px solid #ccc!important;\n    }\n    .w3-green, .w3-hover-green:hover {\n        color: #fff!important;\n        background-color: #4CAF50!important;\n    }\n</style>\n<div>\n    <div class=\"w3-border\">\n      <div class=\"w3-green\" style=\"height:24px; width:{{msg.counter}}%\"></div>\n      <span ng-if=\"msg.counter === null\">COMPLETE !</span>\n    </div>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 710,
+        "y": 680,
+        "wires": [
+            [
+                "025d6114157a13dd"
+            ]
+        ]
+    },
+    {
+        "id": "88afb3b01aa57023",
+        "type": "counter-loop",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "counter": "counter",
+        "counterType": "msg",
+        "reset": true,
+        "resetValue": "value-null",
+        "initial": "1",
+        "initialType": "num",
+        "operator": "lt",
+        "termination": "100",
+        "terminationType": "num",
+        "increment": "1",
+        "incrementType": "num",
+        "x": 390,
+        "y": 600,
+        "wires": [
+            [
+                "7313a58514606374"
+            ],
+            [
+                "7313a58514606374"
+            ]
+        ]
+    },
+    {
+        "id": "cbf3cc5e03056899",
+        "type": "delay",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "100",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "outputs": 1,
+        "x": 210,
+        "y": 720,
+        "wires": [
+            [
+                "88afb3b01aa57023"
+            ]
+        ]
+    },
+    {
+        "id": "025d6114157a13dd",
+        "type": "switch",
+        "z": "99999b8a6931f0b2",
+        "name": "continue if counter is defined",
+        "property": "counter",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 400,
+        "y": 940,
+        "wires": [
+            [
+                "cbf3cc5e03056899"
+            ]
+        ]
+    },
+    {
+        "id": "b5968b7ecc4ff7a2",
+        "type": "inject",
+        "z": "99999b8a6931f0b2",
+        "name": "On Start",
+        "props": [
+            {
+                "p": "counter",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 460,
+        "y": 680,
+        "wires": [
+            [
+                "7313a58514606374"
             ]
         ]
     },
