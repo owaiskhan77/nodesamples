@@ -167,256 +167,338 @@
         "className": ""
     },
     {
-        "id": "806d55723cea2812",
-        "type": "file in",
+        "id": "3a6aa5e1d59f4f1f",
+        "type": "ui_tab",
+        "name": "RateConfiguration",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "9b8d585caa85f70e",
+        "type": "ui_group",
+        "name": "Configuration",
+        "tab": "3a6aa5e1d59f4f1f",
+        "order": 1,
+        "disp": true,
+        "width": "5",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7b368e5a4be11b54",
+        "type": "ui_group",
+        "name": "Calculation",
+        "tab": "3a6aa5e1d59f4f1f",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "918eaa1814b8248e",
+        "type": "ui_dropdown",
         "z": "fe058ad1849932aa",
-        "name": "Input File",
-        "filename": "root\\jlab\\smart.csv",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 260,
+        "name": "",
+        "label": "RateCode",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "9b8d585caa85f70e",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Domestic",
+                "value": "1",
+                "type": "str"
+            },
+            {
+                "label": "Non Domestic Commercial",
+                "value": "2",
+                "type": "str"
+            },
+            {
+                "label": "State / Central Deptts.",
+                "value": "3",
+                "type": "str"
+            },
+            {
+                "label": "Agriculture",
+                "value": "4",
+                "type": "str"
+            },
+            {
+                "label": "Public Street Lights",
+                "value": "5",
+                "type": "str"
+            },
+            {
+                "label": "LT PHE",
+                "value": "6.1",
+                "type": "str"
+            },
+            {
+                "label": "HT PHE",
+                "value": "6.2",
+                "type": "str"
+            },
+            {
+                "label": "LT Industrial",
+                "value": "7.1",
+                "type": "str"
+            },
+            {
+                "label": "HT Industrial",
+                "value": "7.2",
+                "type": "str"
+            },
+            {
+                "label": "Power Intensive Load",
+                "value": "7.3",
+                "type": "str"
+            },
+            {
+                "label": "General Purpose Bulk Supply",
+                "value": "8",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 160,
+        "y": 60,
+        "wires": [
+            [
+                "ee70d012725f5d04"
+            ]
+        ]
+    },
+    {
+        "id": "c5cf542dff364ce2",
+        "type": "ui_numeric",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "label": "AddUnits",
+        "tooltip": "",
+        "group": "9b8d585caa85f70e",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": true,
+        "topic": "topic",
+        "topicType": "msg",
+        "format": "{{msg.payload}} Kwh",
+        "min": 0,
+        "max": "100000",
+        "step": "1",
+        "className": "",
+        "x": 160,
         "y": 120,
         "wires": [
-            [
-                "46fbd40ca18f2a4c",
-                "bae65897d837f9a7"
-            ]
-        ]
-    },
-    {
-        "id": "46fbd40ca18f2a4c",
-        "type": "csv to json ext",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "version": "0.1",
-        "source": "filename",
-        "delimiter": ",",
-        "quote": "\"",
-        "escape": "\"",
-        "ignoreEmpty": false,
-        "checkType": true,
-        "trim": true,
-        "noheader": false,
-        "includeColumns": "",
-        "headers": "",
-        "debug": false,
-        "x": 350,
-        "y": 20,
-        "wires": [
-            [
-                "77cd76076c4deaaa",
-                "b30f8f98cb77a40e"
-            ]
-        ]
-    },
-    {
-        "id": "77cd76076c4deaaa",
-        "type": "debug",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload{\"0\"&$substring($string(Description),0,5):$sum(`Transaction Amount(INR)`)}",
-        "targetType": "jsonata",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 600,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "b30f8f98cb77a40e",
-        "type": "debug",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 590,
-        "y": 20,
-        "wires": []
-    },
-    {
-        "id": "2f3afc5871b19c7d",
-        "type": "file in",
-        "z": "fe058ad1849932aa",
-        "name": "Input File",
-        "filename": "D:\\python27\\022022-WITH-ADJ\\kashmir.txt",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 160,
-        "y": 240,
-        "wires": [
-            [
-                "68fd60455c976f8c"
-            ]
-        ]
-    },
-    {
-        "id": "4298bf587b3d4cea",
-        "type": "debug",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "$substring(payload{`Txn Date`:$count(Description)}\t~> $each(function($v, $n) {{\t    'date': $n,\t    'cnt': $v\t}}) ^(>cnt)[0].date,3,7)",
-        "targetType": "jsonata",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 800,
-        "y": 260,
-        "wires": []
-    },
-    {
-        "id": "20636cfdef7a7016",
-        "type": "csv to json ext",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "version": "0.1",
-        "source": "payload",
-        "delimiter": ",",
-        "quote": "\"",
-        "escape": "\"",
-        "ignoreEmpty": false,
-        "checkType": true,
-        "trim": true,
-        "noheader": false,
-        "includeColumns": "",
-        "headers": "",
-        "debug": false,
-        "x": 670,
-        "y": 140,
-        "wires": [
-            [
-                "4298bf587b3d4cea"
-            ]
-        ]
-    },
-    {
-        "id": "68fd60455c976f8c",
-        "type": "exec",
-        "z": "fe058ad1849932aa",
-        "command": "powershell  Get-Content",
-        "addpay": "filename",
-        "append": " -Head 50000",
-        "useSpawn": "false",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "",
-        "x": 430,
-        "y": 240,
-        "wires": [
-            [
-                "20636cfdef7a7016"
-            ],
-            [],
             []
         ]
     },
     {
-        "id": "bae65897d837f9a7",
-        "type": "csv to json ext",
+        "id": "6978aba3869692b8",
+        "type": "ui_numeric",
         "z": "fe058ad1849932aa",
         "name": "",
-        "version": "0.1",
-        "source": "filename",
-        "delimiter": ",",
-        "quote": "\"",
-        "escape": "\"",
-        "ignoreEmpty": false,
-        "checkType": true,
-        "trim": true,
-        "noheader": false,
-        "includeColumns": "",
-        "headers": "",
-        "debug": false,
-        "x": 310,
-        "y": 360,
+        "label": "Sanctioned Load",
+        "tooltip": "",
+        "group": "9b8d585caa85f70e",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": true,
+        "topic": "topic",
+        "topicType": "msg",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": "100000",
+        "step": "1",
+        "className": "",
+        "x": 190,
+        "y": 180,
         "wires": [
-            [
-                "5b45bc94d79bbc3b",
-                "f0d5be7807c56477"
-            ]
+            []
         ]
     },
     {
-        "id": "5b45bc94d79bbc3b",
-        "type": "debug",
+        "id": "0fcff8b56f516046",
+        "type": "ui_numeric",
         "z": "fe058ad1849932aa",
         "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "(\t$a:=(payload[ \t    (Collector ~>/jm/i) and \t    (`Status Code`='Normal')\t     and \t    ($floor(\t        ($toMillis($now())-$toMillis(`Last Billable Read`,'[D]-[M]-[Y] [H#01]:[m01]')\t        )/86400000)) <= 29 ]\t{Collector:$count(Meter)});\t$b:={'Total Meters':$sum($each($a,function($v,$k){$v}))};\t$merge([$a,$b]))",
-        "targetType": "jsonata",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 500,
-        "y": 360,
+        "label": "Demand",
+        "tooltip": "",
+        "group": "9b8d585caa85f70e",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": true,
+        "topic": "topic",
+        "topicType": "msg",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": "100000",
+        "step": "1",
+        "className": "",
+        "x": 160,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3f75d036a4aaed57",
+        "type": "ui_text",
+        "z": "fe058ad1849932aa",
+        "group": "7b368e5a4be11b54",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Energy Charges",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 900,
+        "y": 60,
         "wires": []
     },
     {
-        "id": "96092db84b8ab2b4",
-        "type": "inject",
+        "id": "1fa74e511904093e",
+        "type": "ui_text",
         "z": "fe058ad1849932aa",
+        "group": "7b368e5a4be11b54",
+        "order": 0,
+        "width": 0,
+        "height": 0,
         "name": "",
-        "props": [
+        "label": "Electricity Duty",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 960,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "553538e481ed8e11",
+        "type": "ui_text",
+        "z": "fe058ad1849932aa",
+        "group": "7b368e5a4be11b54",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Demand Charges",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 970,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "6f4598f1c19827cb",
+        "type": "ui_text",
+        "z": "fe058ad1849932aa",
+        "group": "7b368e5a4be11b54",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Billed Amount",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1040,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "e144fee15efa0657",
+        "type": "ui_table",
+        "z": "fe058ad1849932aa",
+        "group": "5ad478847c2d5ed0",
+        "name": "",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "columns": [
             {
-                "p": "payload"
+                "field": "1.56",
+                "title": "0-100",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
             },
             {
-                "p": "topic",
+                "field": "2.2",
+                "title": "101-200",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 590,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "ee70d012725f5d04",
+        "type": "switch",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "3",
                 "vt": "str"
             }
         ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 100,
-        "y": 20,
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 410,
+        "y": 180,
         "wires": [
             [
-                "806d55723cea2812"
-            ]
+                "e144fee15efa0657"
+            ],
+            [],
+            []
         ]
-    },
-    {
-        "id": "f0d5be7807c56477",
-        "type": "debug",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 450,
-        "y": 440,
-        "wires": []
     },
     {
         "id": "b71ea77d46ce47f4",
