@@ -149,7 +149,7 @@
         "type": "ui_group",
         "name": "Jammu Smart Meters",
         "tab": "afea3e73df80298e",
-        "order": 4,
+        "order": 2,
         "disp": true,
         "width": 5,
         "collapse": false,
@@ -160,7 +160,7 @@
         "type": "ui_group",
         "name": "Graphs",
         "tab": "afea3e73df80298e",
-        "order": 5,
+        "order": 4,
         "disp": true,
         "width": 5,
         "collapse": false,
@@ -191,10 +191,21 @@
         "type": "ui_group",
         "name": "Calculation",
         "tab": "3a6aa5e1d59f4f1f",
-        "order": 2,
+        "order": 3,
         "disp": true,
         "width": "6",
         "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9329a546aa63683c",
+        "type": "ui_group",
+        "name": "Tariff",
+        "tab": "3a6aa5e1d59f4f1f",
+        "order": 2,
+        "disp": true,
+        "width": 5,
+        "collapse": true,
         "className": ""
     },
     {
@@ -276,7 +287,7 @@
         "y": 60,
         "wires": [
             [
-                "ee70d012725f5d04"
+                "39fd68cdd367dac1"
             ]
         ]
     },
@@ -288,7 +299,7 @@
         "label": "AddUnits",
         "tooltip": "",
         "group": "9b8d585caa85f70e",
-        "order": 1,
+        "order": 2,
         "width": 0,
         "height": 0,
         "wrap": false,
@@ -314,7 +325,7 @@
         "label": "Sanctioned Load",
         "tooltip": "",
         "group": "9b8d585caa85f70e",
-        "order": 1,
+        "order": 3,
         "width": 0,
         "height": 0,
         "wrap": false,
@@ -340,7 +351,7 @@
         "label": "Demand",
         "tooltip": "",
         "group": "9b8d585caa85f70e",
-        "order": 1,
+        "order": 4,
         "width": 0,
         "height": 0,
         "wrap": false,
@@ -363,7 +374,7 @@
         "type": "ui_text",
         "z": "fe058ad1849932aa",
         "group": "7b368e5a4be11b54",
-        "order": 0,
+        "order": 1,
         "width": 0,
         "height": 0,
         "name": "",
@@ -380,7 +391,7 @@
         "type": "ui_text",
         "z": "fe058ad1849932aa",
         "group": "7b368e5a4be11b54",
-        "order": 0,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "",
@@ -397,7 +408,7 @@
         "type": "ui_text",
         "z": "fe058ad1849932aa",
         "group": "7b368e5a4be11b54",
-        "order": 0,
+        "order": 3,
         "width": 0,
         "height": 0,
         "name": "",
@@ -414,7 +425,7 @@
         "type": "ui_text",
         "z": "fe058ad1849932aa",
         "group": "7b368e5a4be11b54",
-        "order": 0,
+        "order": 4,
         "width": 0,
         "height": 0,
         "name": "",
@@ -430,33 +441,12 @@
         "id": "e144fee15efa0657",
         "type": "ui_table",
         "z": "fe058ad1849932aa",
-        "group": "5ad478847c2d5ed0",
+        "group": "9329a546aa63683c",
         "name": "",
-        "order": 4,
-        "width": 0,
-        "height": 0,
-        "columns": [
-            {
-                "field": "1.56",
-                "title": "0-100",
-                "width": "",
-                "align": "left",
-                "formatter": "plaintext",
-                "formatterParams": {
-                    "target": "_blank"
-                }
-            },
-            {
-                "field": "2.2",
-                "title": "101-200",
-                "width": "",
-                "align": "left",
-                "formatter": "plaintext",
-                "formatterParams": {
-                    "target": "_blank"
-                }
-            }
-        ],
+        "order": 1,
+        "width": 5,
+        "height": 4,
+        "columns": [],
         "outputs": 0,
         "cts": false,
         "x": 590,
@@ -464,41 +454,40 @@
         "wires": []
     },
     {
-        "id": "ee70d012725f5d04",
-        "type": "switch",
+        "id": "39fd68cdd367dac1",
+        "type": "function",
         "z": "fe058ad1849932aa",
         "name": "",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "1",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "2",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "3",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 3,
-        "x": 410,
-        "y": 180,
+        "func": "switch(msg.payload)\n{\n    case '1':\n        msg.payload = [{'RateComponent':'0-100 Units','Charge':'1.69'},\n        {'RateComponent':'101-200 Units','Charge':'2.2'},\n        {'RateComponent':'201-400 Units','Charge':'3.3'},\n        {'RateComponent':'Above 400 Units','Charge':'3.52'},\n        {'RateComponent':'Fixed/Demand Charges','Charge':'5.5/KW'}               ];\n        break;\n    case 2:\n        msg.payload = [{'RateComponent':'0-100 Units','Rate':'1.52'}];\n        break;\n    case 3:\n        msg.payload = [{'RateComponent':'0-100 Units','Rate':'1.52'}];\n        break;  \n    default:\n        msg.payload = [{'RateComponent':'0-100 Units','Rate':'1.52'}]\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 280,
         "wires": [
             [
-                "e144fee15efa0657"
-            ],
-            [],
-            []
+                "e144fee15efa0657",
+                "c295c23b0a976581"
+            ]
         ]
+    },
+    {
+        "id": "c295c23b0a976581",
+        "type": "debug",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 360,
+        "wires": []
     },
     {
         "id": "b71ea77d46ce47f4",
@@ -946,13 +935,13 @@
         "type": "file in",
         "z": "99999b8a6931f0b2",
         "name": "",
-        "filename": "/root/jlab/report.csv",
+        "filename": "d:\\jlab\\report.csv",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
         "encoding": "none",
         "allProps": false,
-        "x": 250,
+        "x": 240,
         "y": 40,
         "wires": [
             [
