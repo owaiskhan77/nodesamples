@@ -193,7 +193,7 @@
         "tab": "3a6aa5e1d59f4f1f",
         "order": 3,
         "disp": true,
-        "width": "6",
+        "width": 4,
         "collapse": false,
         "className": ""
     },
@@ -207,6 +207,102 @@
         "width": 5,
         "collapse": true,
         "className": ""
+    },
+    {
+        "id": "aec02b256d365ffd",
+        "type": "mui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "m-base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "m-page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "m-page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "m-page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "m-group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "m-group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "m-group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "m-widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "m-widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "m-widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
     },
     {
         "id": "918eaa1814b8248e",
@@ -317,8 +413,8 @@
         "max": "100000",
         "step": "1",
         "className": "",
-        "x": 180,
-        "y": 340,
+        "x": 140,
+        "y": 360,
         "wires": [
             [
                 "8d3b6a9493a26b96"
@@ -345,105 +441,13 @@
         "max": "100000",
         "step": "1",
         "className": "",
-        "x": 130,
-        "y": 440,
+        "x": 150,
+        "y": 480,
         "wires": [
-            []
+            [
+                "6f5d226a54c0c14b"
+            ]
         ]
-    },
-    {
-        "id": "0fcff8b56f516046",
-        "type": "ui_numeric",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "label": "Demand",
-        "tooltip": "",
-        "group": "9b8d585caa85f70e",
-        "order": 4,
-        "width": 0,
-        "height": 0,
-        "wrap": false,
-        "passthru": true,
-        "topic": "topic",
-        "topicType": "msg",
-        "format": "{{msg.payload}}",
-        "min": 0,
-        "max": "100000",
-        "step": "1",
-        "className": "",
-        "x": 120,
-        "y": 540,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "3f75d036a4aaed57",
-        "type": "ui_text",
-        "z": "fe058ad1849932aa",
-        "group": "7b368e5a4be11b54",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Energy Charges",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 900,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "1fa74e511904093e",
-        "type": "ui_text",
-        "z": "fe058ad1849932aa",
-        "group": "7b368e5a4be11b54",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Electricity Duty",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 960,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "553538e481ed8e11",
-        "type": "ui_text",
-        "z": "fe058ad1849932aa",
-        "group": "7b368e5a4be11b54",
-        "order": 3,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Demand Charges",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 970,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "6f4598f1c19827cb",
-        "type": "ui_text",
-        "z": "fe058ad1849932aa",
-        "group": "7b368e5a4be11b54",
-        "order": 4,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Billed Amount",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 1040,
-        "y": 240,
-        "wires": []
     },
     {
         "id": "e144fee15efa0657",
@@ -491,13 +495,10 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 580,
-        "y": 240,
+        "x": 600,
+        "y": 140,
         "wires": [
-            [
-                "7e2ee827ce12b7d0",
-                "4722e7a6ae7da380"
-            ]
+            []
         ]
     },
     {
@@ -519,40 +520,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 320,
-        "y": 240,
+        "x": 340,
+        "y": 160,
         "wires": [
             [
                 "6191561aa8fabda8",
                 "f1ca1223049a81f8"
-            ]
-        ]
-    },
-    {
-        "id": "4722e7a6ae7da380",
-        "type": "ui_button",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "group": "9b8d585caa85f70e",
-        "order": 4,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "Get",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "amt",
-        "payloadType": "flow",
-        "topic": "topic",
-        "topicType": "msg",
-        "x": 710,
-        "y": 140,
-        "wires": [
-            [
-                "3f75d036a4aaed57"
             ]
         ]
     },
@@ -597,8 +570,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 810,
-        "y": 260,
+        "x": 870,
+        "y": 520,
         "wires": []
     },
     {
@@ -607,7 +580,7 @@
         "z": "fe058ad1849932aa",
         "name": "",
         "group": "9b8d585caa85f70e",
-        "order": 5,
+        "order": 4,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -618,7 +591,7 @@
         "className": "",
         "icon": "",
         "payload": "",
-        "payloadType": "str",
+        "payloadType": "num",
         "topic": "topic",
         "topicType": "msg",
         "x": 70,
@@ -627,34 +600,11 @@
             [
                 "918eaa1814b8248e",
                 "c5cf542dff364ce2",
-                "b568a8e37f1fe7cb"
-            ]
-        ]
-    },
-    {
-        "id": "b568a8e37f1fe7cb",
-        "type": "change",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "0",
-                "tot": "num"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 440,
-        "y": 120,
-        "wires": [
-            [
-                "3f75d036a4aaed57"
+                "bb187e8e5262722d",
+                "2b2ddbc9097d5019",
+                "8d3b6a9493a26b96",
+                "6978aba3869692b8",
+                "6f5d226a54c0c14b"
             ]
         ]
     },
@@ -663,14 +613,14 @@
         "type": "function",
         "z": "fe058ad1849932aa",
         "name": "",
-        "func": "switch(flow.get('rc'))\n{\n    case '1':\n        var ip=flow.get('units');\n        var domt=[];\n        if (ip/100 <=1)\n        {domt.push({'RateComponent':'0-100Units','Charge':ip*1.69},\n        {'RateComponent':'Total EC','Charge':ip*1.69})\n        msg.payload=domt;\n        break;\n        }\n        else if (ip>100 && ip <=200)\n        {domt.push({'RateComponent':'0-100Units','Charge':169},\n        {'RateComponent':'100-200Units','Charge':(ip-100)*2.2},\n        {'RateComponent':'Total EC','Charge':169+(ip-100)*2.2}\n        )\n        msg.payload=domt;    \n        break;\n        }\n        else if (ip>200 && ip <=400)\n        {domt.push({'RateComponent':'0-100Units','Charge':169},\n        {'RateComponent':'100-200Units','Charge':220},\n        {'RateComponent':'200-400Units','Charge':(ip-200)*3.3},\n        {'RateComponent':'Total EC','Charge':389+((ip-200)*3.3)})\n        msg.payload=domt;    \n        break;\n        }\n         else  (ip>400)\n        {domt.push({'RateComponent':'0-100Units','Charge':169},\n        {'RateComponent':'100-200Units','Charge':220},\n        {'RateComponent':'200-400Units','Charge':660},\n        {'RateComponent':'Above-400Units','Charge':(ip-400)*3.52},\n        {'RateComponent':'Total EC','Charge':1049+((ip-400)*3.3)})\n        msg.payload=domt;    \n        break;\n        }\n    break;\n    case '2':\n        msg.payload = flow.get('units')*4.52;\n        break;\n    case '3':\n        msg.payload = flow.get('units')*5.52;\n        break;  \n    default:\n        msg.payload = flow.get('units')*6.52;\n}\nreturn msg",
+        "func": "var ec=0;\nvar ed=0;\nvar dc=0;\nvar domt=[];\nswitch(flow.get('rc'))\n{   \n    case '1':\n        var ip=flow.get('units');\n        if (ip <=100)\n        {domt.push({'RateComponent':'0-100Units','Charge':ip*1.69},\n        {'RateComponent':'Total EC','Charge':ip*1.69})\n        ec=ip*1.69;\n        ed=Math.round(ec*0.15);\n        domt.push({'RateComponent':'Electricity Duty','Charge':ed});\n        break;\n        }\n        else if (ip>100 && ip <=200)\n        {domt.push({'RateComponent':'0-100Units','Charge':169},\n        {'RateComponent':'100-200Units','Charge':(ip-100)*2.2},\n        {'RateComponent':'Total EC','Charge':169+(ip-100)*2.2}\n        )\n        ec=169+(ip-100)*2.2;\n        ed=Math.round(ec*0.15);\n        domt.push({'RateComponent':'Electricity Duty','Charge':ed});\n        break;\n        }\n        else if (ip>200 && ip <=400)\n        {domt.push({'RateComponent':'0-100Units','Charge':169},\n        {'RateComponent':'100-200Units','Charge':220},\n        {'RateComponent':'200-400Units','Charge':(ip-200)*3.3},\n        {'RateComponent':'Total EC','Charge':389+((ip-200)*3.3)})\n        ec=389+((ip-200)*3.3);\n        ed=Math.round(ec*0.15);\n        domt.push({'RateComponent':'Electricity Duty','Charge':ed});\n        break;\n        }\n        else if(ip > 400)\n        {domt.push({'RateComponent':'0-100Units','Charge':169},\n        {'RateComponent':'100-200Units','Charge':220},\n        {'RateComponent':'200-400Units','Charge':660},\n        {'RateComponent':'Above-400Units','Charge':(ip-400)*3.52},\n        {'RateComponent':'Total EC','Charge':1049+((ip-400)*3.52)})\n        ec=1049+((ip-400)*3.52);\n        ed=Math.round(ec*0.15);\n        domt.push({'RateComponent':'Electricity Duty','Charge':ed});\n        break;\n        }\n    break;\n    case '2':\n        msg.payload = flow.get('units')*4.52;\n        break;\n    case '3':\n        msg.payload = flow.get('units')*5.52;\n        break;  \n    default:\n        msg.payload = flow.get('units')*6.52;\n\n    \n}\nswitch(flow.get('rc'))\n{ case '1':\n    dc=flow.get('sl')*5.5;\n    domt.push({'RateComponent':'Demand Charges','Charge':dc});\n    domt.push({'RateComponent':'Total Bill Amount','Charge':ec+ed+dc})\n    break;\n  case '2':\n    dc=flow.get('sl')*44;  \n    domt.push({'RateComponent':'Demand Charges','Charge':dc});\n    domt.push({'RateComponent':'Total Bill Amount','Charge':ec+ed+dc})\n    break;\n}\n\n\nmsg.payload=domt;\nreturn msg",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 680,
-        "y": 420,
+        "x": 620,
+        "y": 500,
         "wires": [
             [
                 "d1b006ac9615e6d1"
@@ -683,15 +633,70 @@
         "z": "fe058ad1849932aa",
         "group": "7b368e5a4be11b54",
         "name": "",
-        "order": 4,
-        "width": "5",
-        "height": "6",
+        "order": 1,
+        "width": 4,
+        "height": 5,
         "columns": [],
         "outputs": 0,
         "cts": false,
         "x": 910,
-        "y": 400,
+        "y": 320,
         "wires": []
+    },
+    {
+        "id": "bb187e8e5262722d",
+        "type": "change",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 260,
+        "wires": [
+            [
+                "d1b006ac9615e6d1",
+                "7e2ee827ce12b7d0"
+            ]
+        ]
+    },
+    {
+        "id": "6f5d226a54c0c14b",
+        "type": "change",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "sl",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 480,
+        "wires": [
+            [
+                "f1ca1223049a81f8"
+            ]
+        ]
     },
     {
         "id": "b71ea77d46ce47f4",

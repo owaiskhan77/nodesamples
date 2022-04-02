@@ -3,9 +3,10 @@
     "description": "Creating UI dashboard from smart meter report files",
     "version": "0.0.1",
     "dependencies": {
-        "node-red-contrib-csvtojson": "0.0.2",
         "node-red-dashboard": "3.1.6",
-        "node-red-node-ui-table": "0.3.12"
+        "node-red-node-ui-table": "0.3.12",
+        "node-red-contrib-loop-processing": "0.5.1",
+        "node-red-contrib-fast-csv": "0.4.0"
     },
     "node-red": {
         "settings": {
