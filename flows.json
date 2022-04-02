@@ -191,7 +191,7 @@
         "type": "ui_group",
         "name": "Calculation",
         "tab": "3a6aa5e1d59f4f1f",
-        "order": 3,
+        "order": 4,
         "disp": true,
         "width": 4,
         "collapse": false,
@@ -202,7 +202,7 @@
         "type": "ui_group",
         "name": "Tariff",
         "tab": "3a6aa5e1d59f4f1f",
-        "order": 2,
+        "order": 3,
         "disp": true,
         "width": 5,
         "collapse": true,
@@ -303,6 +303,17 @@
                 "py": 0
             }
         }
+    },
+    {
+        "id": "0bb96cd4266e1789",
+        "type": "ui_group",
+        "name": "RateParameter",
+        "tab": "3a6aa5e1d59f4f1f",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "918eaa1814b8248e",
@@ -413,8 +424,8 @@
         "max": "100000",
         "step": "1",
         "className": "",
-        "x": 140,
-        "y": 360,
+        "x": 160,
+        "y": 480,
         "wires": [
             [
                 "8d3b6a9493a26b96"
@@ -436,13 +447,13 @@
         "passthru": true,
         "topic": "topic",
         "topicType": "msg",
-        "format": "{{msg.payload}}",
+        "format": "{{msg.payload}}Kw",
         "min": 0,
         "max": "100000",
         "step": "1",
         "className": "",
-        "x": 150,
-        "y": 480,
+        "x": 170,
+        "y": 600,
         "wires": [
             [
                 "6f5d226a54c0c14b"
@@ -485,23 +496,6 @@
         ]
     },
     {
-        "id": "6191561aa8fabda8",
-        "type": "function",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "func": "switch(flow.get('rc'))\n{\n    case '1':\n        msg.payload = flow.get('units')*3.52;\n        break;\n    case '2':\n        msg.payload = flow.get('units')*4.52;\n        break;\n    case '3':\n        msg.payload = flow.get('units')*5.52;\n        break;  \n    default:\n        msg.payload = flow.get('units')*6.52;\n}\n\nreturn flow.set('amt',msg.payload);",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 600,
-        "y": 140,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "2b2ddbc9097d5019",
         "type": "change",
         "z": "fe058ad1849932aa",
@@ -521,11 +515,11 @@
         "to": "",
         "reg": false,
         "x": 340,
-        "y": 160,
+        "y": 120,
         "wires": [
             [
-                "6191561aa8fabda8",
-                "f1ca1223049a81f8"
+                "f1ca1223049a81f8",
+                "9a1463b566d310bd"
             ]
         ]
     },
@@ -548,11 +542,10 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 370,
-        "y": 360,
+        "x": 350,
+        "y": 320,
         "wires": [
             [
-                "6191561aa8fabda8",
                 "f1ca1223049a81f8"
             ]
         ]
@@ -570,8 +563,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 870,
-        "y": 520,
+        "x": 830,
+        "y": 220,
         "wires": []
     },
     {
@@ -580,7 +573,7 @@
         "z": "fe058ad1849932aa",
         "name": "",
         "group": "9b8d585caa85f70e",
-        "order": 4,
+        "order": 5,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -604,7 +597,8 @@
                 "2b2ddbc9097d5019",
                 "8d3b6a9493a26b96",
                 "6978aba3869692b8",
-                "6f5d226a54c0c14b"
+                "6f5d226a54c0c14b",
+                "114d4a70ded986d1"
             ]
         ]
     },
@@ -663,11 +657,10 @@
         "to": "",
         "reg": false,
         "x": 600,
-        "y": 260,
+        "y": 280,
         "wires": [
             [
-                "d1b006ac9615e6d1",
-                "7e2ee827ce12b7d0"
+                "d1b006ac9615e6d1"
             ]
         ]
     },
@@ -695,6 +688,93 @@
         "wires": [
             [
                 "f1ca1223049a81f8"
+            ]
+        ]
+    },
+    {
+        "id": "ab168107e6c6978b",
+        "type": "ui_ui_control",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "events": "all",
+        "x": 720,
+        "y": 160,
+        "wires": [
+            [
+                "fffb357f1bfbaf0a"
+            ]
+        ]
+    },
+    {
+        "id": "fffb357f1bfbaf0a",
+        "type": "ui_numeric",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "label": "Phase",
+        "tooltip": "",
+        "group": "0bb96cd4266e1789",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": true,
+        "topic": "topic",
+        "topicType": "msg",
+        "format": "{{value}}",
+        "min": "1",
+        "max": "3",
+        "step": "2",
+        "className": "",
+        "x": 910,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9a1463b566d310bd",
+        "type": "function",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "func": "switch(flow.get('rc'))\n{ \n    case '1':\n    msg.payload=\n    {\"group\":\n    {\"hide\":[\"RateConfiguration_RateParameter\"],\"show\":[]}\n    }\n    break;\n    case '2':\n    msg.payload=\n    {\"group\":\n    {\"hide\":[],\"show\":[\"RateConfiguration_RateParameter\"]}\n    }    \n    break;\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 200,
+        "wires": [
+            [
+                "ab168107e6c6978b",
+                "7e2ee827ce12b7d0"
+            ]
+        ]
+    },
+    {
+        "id": "114d4a70ded986d1",
+        "type": "change",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": " {   \"group\":     {\"hide\":[\"RateConfiguration_RateParameter\"],\"show\":[]}    } ",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 560,
+        "y": 120,
+        "wires": [
+            [
+                "ab168107e6c6978b"
             ]
         ]
     },
