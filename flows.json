@@ -305,6 +305,17 @@
         "className": ""
     },
     {
+        "id": "029f50fc25d66306",
+        "type": "ui_group",
+        "name": "BillDateSummary",
+        "tab": "afea3e73df80298e",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
         "id": "918eaa1814b8248e",
         "type": "ui_dropdown",
         "z": "fe058ad1849932aa",
@@ -1223,7 +1234,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 720,
-        "y": 340,
+        "y": 360,
         "wires": [
             []
         ]
@@ -1251,7 +1262,8 @@
         "y": 360,
         "wires": [
             [
-                "7964fdb9182f6fc4"
+                "7964fdb9182f6fc4",
+                "055894d9e16f7b19"
             ]
         ]
     },
@@ -1401,7 +1413,79 @@
                 "30ac7b69e563703e",
                 "e41cd9321de563aa",
                 "f86cfdd578131cda",
-                "d184b79f9555777b"
+                "d184b79f9555777b",
+                "55d1a08a6c14119c"
+            ]
+        ]
+    },
+    {
+        "id": "055894d9e16f7b19",
+        "type": "ui_chart",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "group": "029f50fc25d66306",
+        "order": 1,
+        "width": 5,
+        "height": 9,
+        "label": "BillDate Summary",
+        "chartType": "bar",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "0",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 770,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "55d1a08a6c14119c",
+        "type": "change",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "\t[{\t    \"labels\":$distinct(payload.(\t        $substring($string(Meter),0,1)=\"4\" ? 'Srinagar'\t    : ($substring($string(Meter),0,1)=\"3\" ? 'Jammu' : 'NA'))\t\t),\t    \"data\":$each(payload[`Last Billable Read`]{($floor(($toMillis($now())-$toMillis(`Last Billable Read`,'[D]-[M]-[Y] [H#01]:[m01]:[s01]')\t        )/(86400000*7)))<1 ? 'Below-Week':\t            (($floor(($toMillis($now())-$toMillis(`Last Billable Read`,'[D]-[M]-[Y] [H#01]:[m01]:[s01]')\t        )/(86400000*7)))>=1 and\t            ($floor(($toMillis($now())-$toMillis(`Last Billable Read`,'[D]-[M]-[Y] [H#01]:[m01]:[s01]')\t        )/(86400000*7)))<=3) ? 'Week-Month':'Above-Month':$each({\t    $substring($string(Meter),0,1):$count(Meter)},\t    function($v){$v})},function($v){$v}\t),\t\"series\":$keys(payload[`Last Billable Read`]{\t($floor(($toMillis($now())-$toMillis(`Last Billable Read`,'[D]-[M]-[Y] [H#01]:[m01]:[s01]')\t        )/(86400000*7)))<1 ? '1.Below-Week':\t            (($floor(($toMillis($now())-$toMillis(`Last Billable Read`,'[D]-[M]-[Y] [H#01]:[m01]:[s01]')\t        )/(86400000*7)))>=1 and\t            ($floor(($toMillis($now())-$toMillis(`Last Billable Read`,'[D]-[M]-[Y] [H#01]:[m01]:[s01]')\t        )/(86400000*7)))<=3) ? '2.Week-Month':'3.Above-Month':$count(Meter)}\t)\t}\t]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 420,
+        "wires": [
+            [
+                "055894d9e16f7b19"
             ]
         ]
     }
