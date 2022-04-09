@@ -129,7 +129,7 @@
         "tab": "afea3e73df80298e",
         "order": 1,
         "disp": true,
-        "width": 5,
+        "width": 4,
         "collapse": false,
         "className": ""
     },
@@ -194,6 +194,28 @@
         "order": 4,
         "disp": true,
         "width": 4,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "0bb96cd4266e1789",
+        "type": "ui_group",
+        "name": "RateParameter",
+        "tab": "3a6aa5e1d59f4f1f",
+        "order": 2,
+        "disp": true,
+        "width": 3,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "029f50fc25d66306",
+        "type": "ui_group",
+        "name": "BillDateSummary",
+        "tab": "afea3e73df80298e",
+        "order": 5,
+        "disp": true,
+        "width": 5,
         "collapse": false,
         "className": ""
     },
@@ -292,28 +314,6 @@
                 "py": 0
             }
         }
-    },
-    {
-        "id": "0bb96cd4266e1789",
-        "type": "ui_group",
-        "name": "RateParameter",
-        "tab": "3a6aa5e1d59f4f1f",
-        "order": 2,
-        "disp": true,
-        "width": 3,
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "029f50fc25d66306",
-        "type": "ui_group",
-        "name": "BillDateSummary",
-        "tab": "afea3e73df80298e",
-        "order": 5,
-        "disp": true,
-        "width": "6",
-        "collapse": false,
-        "className": ""
     },
     {
         "id": "918eaa1814b8248e",
@@ -932,8 +932,8 @@
         "name": "",
         "group": "5ad478847c2d5ed0",
         "order": 3,
-        "width": 0,
-        "height": 0,
+        "width": 4,
+        "height": 1,
         "passthru": false,
         "label": "Get",
         "tooltip": "",
@@ -945,56 +945,12 @@
         "payloadType": "str",
         "topic": "topic",
         "topicType": "msg",
-        "x": 70,
+        "x": 90,
         "y": 40,
         "wires": [
             [
                 "88afb3b01aa57023",
                 "4429d83f4f6b9b34"
-            ]
-        ]
-    },
-    {
-        "id": "d184b79f9555777b",
-        "type": "debug",
-        "z": "99999b8a6931f0b2",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 610,
-        "y": 40,
-        "wires": []
-    },
-    {
-        "id": "30ac7b69e563703e",
-        "type": "change",
-        "z": "99999b8a6931f0b2",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "(\t$a:=(payload[ \t    (Meter.$string().$substring(0,1)='4') and \t    ($floor(\t        ($toMillis($now())-$toMillis(`Last Billable Read`,'[D]-[M]-[Y] [H#01]:[m01]:[s01]')\t        )/86400000)) <=  $flowContext('days') ]\t{Collector:$count(Meter)});\t$b:={'Total Meters':$sum($each($a,function($v,$k){$v}))};\t$c:=$merge([$a,$b]);\t$d:=$each($c,function($v,$k){'Collector:'&$k&',Count:'&$v});\t$e:=$d.[$split(',')]{$[0]:$[1]};\t$f:=$each($e,function($v,$k){{$k.$split(':')[0]:$k.$split(':')[1],$v.$split(':')[0]:$v.$split(':')[1]}});\t\t\t)",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 620,
-        "y": 100,
-        "wires": [
-            [
-                "a217bfdc32724f4e"
             ]
         ]
     },
@@ -1005,9 +961,9 @@
         "name": "",
         "group": "5ad478847c2d5ed0",
         "order": 2,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
         "label": "Reset",
         "tooltip": "",
         "color": "",
@@ -1018,8 +974,8 @@
         "payloadType": "json",
         "topic": "topic",
         "topicType": "msg",
-        "x": 70,
-        "y": 380,
+        "x": 130,
+        "y": 340,
         "wires": [
             [
                 "a217bfdc32724f4e",
@@ -1041,7 +997,7 @@
         "columns": [],
         "outputs": 0,
         "cts": false,
-        "x": 870,
+        "x": 1250,
         "y": 100,
         "wires": []
     },
@@ -1057,36 +1013,9 @@
         "columns": [],
         "outputs": 0,
         "cts": false,
-        "x": 830,
-        "y": 180,
+        "x": 1250,
+        "y": 40,
         "wires": []
-    },
-    {
-        "id": "e41cd9321de563aa",
-        "type": "change",
-        "z": "99999b8a6931f0b2",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "(\t$a:=(payload[ \t    (Meter.$string().$substring(0,1)='3') and \t    ($floor(\t        ($toMillis($now())-$toMillis(`Last Billable Read`,'[D]-[M]-[Y] [H#01]:[m01]:[s01]')\t        )/86400000)) <= $flowContext('days') ]\t{Collector:$count(Meter)});\t$b:={'Total Meters':$sum($each($a,function($v,$k){$v}))};\t$c:=$merge([$a,$b]);\t$d:=$each($c,function($v,$k){'Collector:'&$k&',Count:'&$v});\t$e:=$d.[$split(',')]{$[0]:$[1]};\t$f:=$each($e,function($v,$k){{$k.$split(':')[0]:$k.$split(':')[1],$v.$split(':')[0]:$v.$split(':')[1]}});\t\t\t)",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 560,
-        "y": 140,
-        "wires": [
-            [
-                "6741d7d9949222f3"
-            ]
-        ]
     },
     {
         "id": "95e1a5150b7de370",
@@ -1097,19 +1026,19 @@
         "tooltip": "",
         "group": "5ad478847c2d5ed0",
         "order": 1,
-        "width": 0,
-        "height": 0,
+        "width": 4,
+        "height": 1,
         "wrap": false,
         "passthru": true,
         "topic": "topic",
         "topicType": "msg",
-        "format": "{{value}}",
+        "format": "{{msg.payload}}",
         "min": 0,
-        "max": "120",
+        "max": "365",
         "step": 1,
         "className": "",
-        "x": 130,
-        "y": 120,
+        "x": 350,
+        "y": 100,
         "wires": [
             [
                 "a0af3566ffceb3f8"
@@ -1135,10 +1064,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 350,
-        "y": 120,
+        "x": 670,
+        "y": 100,
         "wires": [
-            []
+            [
+                "1b1a62ef8dba6db3"
+            ]
         ]
     },
     {
@@ -1160,8 +1091,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 70,
-        "y": 240,
+        "x": 110,
+        "y": 100,
         "wires": [
             [
                 "95e1a5150b7de370"
@@ -1172,6 +1103,7 @@
         "id": "f86cfdd578131cda",
         "type": "change",
         "z": "99999b8a6931f0b2",
+        "d": true,
         "name": "",
         "rules": [
             {
@@ -1187,8 +1119,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 640,
-        "y": 280,
+        "x": 860,
+        "y": 220,
         "wires": [
             [
                 "7964fdb9182f6fc4"
@@ -1199,6 +1131,7 @@
         "id": "7964fdb9182f6fc4",
         "type": "ui_chart",
         "z": "99999b8a6931f0b2",
+        "d": true,
         "name": "",
         "group": "75f5394b01c07d88",
         "order": 1,
@@ -1233,8 +1166,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 720,
-        "y": 360,
+        "x": 1000,
+        "y": 320,
         "wires": [
             []
         ]
@@ -1258,7 +1191,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 360,
+        "x": 340,
         "y": 360,
         "wires": [
             [
@@ -1274,7 +1207,7 @@
         "group": "5ad478847c2d5ed0",
         "name": "ProgressBar",
         "order": 4,
-        "width": 5,
+        "width": 4,
         "height": 1,
         "format": "<style>\n    .w3-border {\n        border: 1px solid #ccc!important;\n    }\n    .w3-green, .w3-hover-green:hover {\n        color: #fff!important;\n        background-color: #4CAF50!important;\n    }\n</style>\n<div>\n    <div class=\"w3-border\">\n      <div class=\"w3-green\" style=\"height:5px; width:{{msg.counter}}%\"></div>\n        <div class=\"progress\">\n      <div class=\"determinate\" style=\"width: 70%\"></div>\n        </div>\n</div>\n</div>",
         "storeOutMessages": true,
@@ -1372,49 +1305,17 @@
         "type": "file in",
         "z": "99999b8a6931f0b2",
         "name": "",
-        "filename": "d:\\jlab\\report.csv",
+        "filename": "/root/jlab/report.csv",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
         "encoding": "none",
         "allProps": false,
-        "x": 240,
+        "x": 250,
         "y": 40,
         "wires": [
             [
-                "40cb097c5b76e0fc"
-            ]
-        ]
-    },
-    {
-        "id": "40cb097c5b76e0fc",
-        "type": "fastcsv",
-        "z": "99999b8a6931f0b2",
-        "name": "fastcsv",
-        "headers": true,
-        "headerstr": "",
-        "ignoreEmpty": true,
-        "discardUnmappedColumns": true,
-        "strictColumnHandling": false,
-        "delimiter": ",",
-        "quote": "\"",
-        "escape": "\"",
-        "comment": "#",
-        "ltrim": false,
-        "rtrim": false,
-        "rowDelimiter": "\\n",
-        "includeEndRowDelimiter": false,
-        "quoteHeaders": false,
-        "quoteColumns": false,
-        "x": 390,
-        "y": 40,
-        "wires": [
-            [
-                "30ac7b69e563703e",
-                "e41cd9321de563aa",
-                "f86cfdd578131cda",
-                "d184b79f9555777b",
-                "55d1a08a6c14119c"
+                "09a44b6e6011899c"
             ]
         ]
     },
@@ -1422,12 +1323,13 @@
         "id": "055894d9e16f7b19",
         "type": "ui_chart",
         "z": "99999b8a6931f0b2",
+        "d": true,
         "name": "",
         "group": "029f50fc25d66306",
         "order": 1,
         "width": 5,
         "height": 9,
-        "label": "BillDate Summary",
+        "label": "Read Availability Status",
         "chartType": "bar",
         "legend": "true",
         "xformat": "HH:mm:ss",
@@ -1456,8 +1358,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 770,
-        "y": 480,
+        "x": 1030,
+        "y": 500,
         "wires": [
             []
         ]
@@ -1466,6 +1368,7 @@
         "id": "55d1a08a6c14119c",
         "type": "change",
         "z": "99999b8a6931f0b2",
+        "d": true,
         "name": "",
         "rules": [
             {
@@ -1481,12 +1384,132 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 580,
-        "y": 420,
+        "x": 800,
+        "y": 380,
         "wires": [
             [
                 "055894d9e16f7b19"
             ]
         ]
+    },
+    {
+        "id": "1b1a62ef8dba6db3",
+        "type": "function",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "func": "var jtrim={};\nvar ktrim={};\nvar jtrimlist=[];\nvar ktrimlist=[];\nvar dt=flow.get('days');\nfor (var i in msg.payload)\n{\n[day, month, year]=msg.payload[i]['Last Billable Read'].split(\" \")[0].split(\"-\");\nif(Math.floor((new Date()-new Date([year,month,day].join('-')))/86400000) <= dt)\n{\nswitch (msg.payload[i].Meter.substring(0,1))\n\t{\n\tcase '3':\n\tif(jtrim[msg.payload[i].Collector]){jtrim[msg.payload[i].Collector]+=1;}\n\telse {jtrim[msg.payload[i].Collector]=1;}\n\tbreak;\n\tcase '4':\n\tif(ktrim[msg.payload[i].Collector]){ktrim[msg.payload[i].Collector]+=1;}\n\telse {ktrim[msg.payload[i].Collector]=1;}\n\tbreak;\n\t}\t\n}\n}\nfor (i in jtrim){jtrimlist.push({Collector:i,Count:jtrim[i]})}\nfor (i in ktrim){ktrimlist.push({Collector:i,Count:ktrim[i]})}\t\nvar jtotal=0;\nvar ktotal=0;\nfor (i in jtrimlist){jtotal=jtotal+jtrimlist[i].Count}\njtrimlist.push({Collector:\"Total Meters\",Count:jtotal});\nfor (i in ktrimlist){ktotal=ktotal+ktrimlist[i].Count}\nktrimlist.push({Collector:\"Total Meters\",Count:ktotal});\nreturn [[{jtrimlist}],[{ktrimlist}]]\n",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 40,
+        "wires": [
+            [
+                "6f2409d0a5ac99c1"
+            ],
+            [
+                "9f910944ef083225"
+            ]
+        ]
+    },
+    {
+        "id": "6f2409d0a5ac99c1",
+        "type": "change",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "jtrimlist",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 40,
+        "wires": [
+            [
+                "6741d7d9949222f3"
+            ]
+        ]
+    },
+    {
+        "id": "9f910944ef083225",
+        "type": "change",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "ktrimlist",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 100,
+        "wires": [
+            [
+                "a217bfdc32724f4e"
+            ]
+        ]
+    },
+    {
+        "id": "09a44b6e6011899c",
+        "type": "csv to json ext",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "version": "0.1",
+        "source": "filename",
+        "delimiter": ",",
+        "quote": "\"",
+        "escape": "\"",
+        "ignoreEmpty": false,
+        "checkType": false,
+        "trim": false,
+        "noheader": false,
+        "includeColumns": "0,2,8,10",
+        "headers": "",
+        "debug": false,
+        "x": 470,
+        "y": 40,
+        "wires": [
+            [
+                "1b1a62ef8dba6db3",
+                "cf386cd02bbd1d54",
+                "55d1a08a6c14119c",
+                "f86cfdd578131cda"
+            ]
+        ]
+    },
+    {
+        "id": "cf386cd02bbd1d54",
+        "type": "debug",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 200,
+        "wires": []
     }
 ]
