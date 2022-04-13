@@ -162,7 +162,7 @@
         "tab": "afea3e73df80298e",
         "order": 4,
         "disp": true,
-        "width": 5,
+        "width": "10",
         "collapse": false,
         "className": ""
     },
@@ -205,17 +205,6 @@
         "order": 2,
         "disp": true,
         "width": 3,
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "029f50fc25d66306",
-        "type": "ui_group",
-        "name": "BillDateSummary",
-        "tab": "afea3e73df80298e",
-        "order": 5,
-        "disp": true,
-        "width": 5,
         "collapse": false,
         "className": ""
     },
@@ -314,6 +303,32 @@
                 "py": 0
             }
         }
+    },
+    {
+        "id": "c93a2f4591fa9b4e",
+        "type": "mui_group",
+        "name": "Billable Read Status",
+        "tab": "",
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "0b438cc8b01aae8c",
+        "type": "ui_spacer",
+        "z": "99999b8a6931f0b2",
+        "name": "spacer",
+        "group": "75f5394b01c07d88",
+        "order": 2,
+        "width": "9",
+        "height": "1"
+    },
+    {
+        "id": "e4acddb974ffef80",
+        "type": "mui_tab",
+        "name": "Tab",
+        "icon": "dashboard",
+        "order": 0
     },
     {
         "id": "918eaa1814b8248e",
@@ -1100,79 +1115,6 @@
         ]
     },
     {
-        "id": "f86cfdd578131cda",
-        "type": "change",
-        "z": "99999b8a6931f0b2",
-        "d": true,
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "[{\"labels\":$distinct(payload.(\t        $substring($string(Meter),0,1)=\"4\" ? 'Srinagar'\t    : ($substring($string(Meter),0,1)=\"3\" ? 'Jammu' : 'NA'))\t\t),\t \"data\":$each(payload{`Status Code` :$each({\t    $substring($string(Meter),0,1):$count(Meter)},\t    function($v){$v}) },function($v){$v}),\t \"series\":$keys(payload{`Status Code`:{$substring($string(Meter),0,1):$count(Meter)}})\t}]",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 860,
-        "y": 220,
-        "wires": [
-            [
-                "7964fdb9182f6fc4"
-            ]
-        ]
-    },
-    {
-        "id": "7964fdb9182f6fc4",
-        "type": "ui_chart",
-        "z": "99999b8a6931f0b2",
-        "d": true,
-        "name": "",
-        "group": "75f5394b01c07d88",
-        "order": 1,
-        "width": 5,
-        "height": 9,
-        "label": "All Meter Details",
-        "chartType": "bar",
-        "legend": "true",
-        "xformat": "HH:mm:ss",
-        "interpolate": "linear",
-        "nodata": "0",
-        "dot": false,
-        "ymin": "",
-        "ymax": "",
-        "removeOlder": 1,
-        "removeOlderPoints": "",
-        "removeOlderUnit": "3600",
-        "cutout": 0,
-        "useOneColor": false,
-        "useUTC": false,
-        "colors": [
-            "#1f77b4",
-            "#aec7e8",
-            "#ff7f0e",
-            "#2ca02c",
-            "#98df8a",
-            "#d62728",
-            "#ff9896",
-            "#9467bd",
-            "#c5b0d5"
-        ],
-        "outputs": 1,
-        "useDifferentColor": false,
-        "className": "",
-        "x": 1000,
-        "y": 320,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "49ec4c4470a0148d",
         "type": "change",
         "z": "99999b8a6931f0b2",
@@ -1195,8 +1137,8 @@
         "y": 360,
         "wires": [
             [
-                "7964fdb9182f6fc4",
-                "055894d9e16f7b19"
+                "055894d9e16f7b19",
+                "1b5a13f28dda3cbe"
             ]
         ]
     },
@@ -1323,10 +1265,9 @@
         "id": "055894d9e16f7b19",
         "type": "ui_chart",
         "z": "99999b8a6931f0b2",
-        "d": true,
         "name": "",
-        "group": "029f50fc25d66306",
-        "order": 1,
+        "group": "75f5394b01c07d88",
+        "order": 3,
         "width": 5,
         "height": 9,
         "label": "Read Availability Status",
@@ -1358,8 +1299,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 1030,
-        "y": 500,
+        "x": 1110,
+        "y": 540,
         "wires": [
             []
         ]
@@ -1384,8 +1325,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 800,
-        "y": 380,
+        "x": 820,
+        "y": 400,
         "wires": [
             [
                 "055894d9e16f7b19"
@@ -1490,14 +1431,98 @@
         "wires": [
             [
                 "1b1a62ef8dba6db3",
-                "cf386cd02bbd1d54",
                 "55d1a08a6c14119c",
-                "f86cfdd578131cda"
+                "d9fdfdcec57d3241",
+                "940499c62622124a"
             ]
         ]
     },
     {
-        "id": "cf386cd02bbd1d54",
+        "id": "1b5a13f28dda3cbe",
+        "type": "ui_chart",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "group": "75f5394b01c07d88",
+        "order": 1,
+        "width": 5,
+        "height": 9,
+        "label": "All Meter Details",
+        "chartType": "bar",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "0",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1260,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d9fdfdcec57d3241",
+        "type": "function",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "func": "var out=msg.payload.reduce(function(arr,cur){\nif(arr[cur[\"Status Code\"]][\"jmu\"]>0)\n\t{if(cur.Meter.substring(0,1)==\"3\"){arr[cur[\"Status Code\"]][\"jmu\"]=++arr[cur[\"Status Code\"]][\"jmu\"]}}\nelse if (cur.Meter.substring(0,1)==\"3\") {arr[cur[\"Status Code\"]][\"jmu\"]=1} \nif(arr[cur[\"Status Code\"]][\"kmr\"]>0)\n{if (cur.Meter.substring(0,1)==\"4\"){arr[cur[\"Status Code\"]][\"kmr\"]=++arr[cur[\"Status Code\"]][\"kmr\"]}}\n else if (cur.Meter.substring(0,1)==\"4\") {arr[cur[\"Status Code\"]][\"kmr\"]=1}\nreturn arr;\n},{Inventory:{jmu:0,kmr:0},Normal:{jmu:0,kmr:0},Lost:{jmu:0,kmr:0},Discovered:{jmu:0,kmr:0},Failed:{jmu:0,kmr:0},Installed:{jmu:0,kmr:0}});\nvar data=[out].reduce(function(acc,cur){\nfor (var i in cur){acc.push([cur[i].jmu,cur[i].kmr])}\nreturn acc\n},[]);\nmsg.payload=[{\"series\":[\"Inventory\",\"Normal\",\"Lost\",\"Discovered\",\"Failed\",\"Installed\"],data,\"labels\":[\"Jammu\",\"Srinagar\"]}];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 280,
+        "wires": [
+            [
+                "1b5a13f28dda3cbe",
+                "252f8e0bfb55800a"
+            ]
+        ]
+    },
+    {
+        "id": "940499c62622124a",
+        "type": "function",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "func": "var jtrim={};\nvar ktrim={};\nvar data=[];\nfor (var i in msg.payload)\n{\n\tif(msg.payload[i]['Last Billable Read']!=\"\"){\n\t [day, month, year]=msg.payload[i]['Last Billable Read'].split(\" \")[0].split(\"-\");\n\n\t\n\t switch (msg.payload[i].Meter.substring(0,1))\n\t\t{\n\t\tcase '3':\n\t\tif(Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7)) <=4)\n\t\t{\n\t\t\tif(jtrim[Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7))]){jtrim[Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7))]+=1;}\n\t\t\telse {jtrim[Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7))]=1;}\n\t\t}\n\t\telse {jtrim['Above 4']=jtrim['Above 4']+1||0;}\n\t\tbreak;\n\t\tcase '4':\n\t\tif(Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7)) <=4)\n\t\t{\n\t\t\tif(ktrim[Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7))]){ktrim[Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7))]+=1;}\n\t\t\telse {ktrim[Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7))]=1;}\n\t\t}\n\t\telse {ktrim['Above 4']=ktrim['Above 4']+1||0;}\n\t\tbreak;\n\t\t}\t\n\t}\n\t\n}\nvar nseries=[jtrim].reduce(function(acc,cur){\n\tfor (i in cur){acc.push(i+\"W\")}\n\t\treturn acc;\n},[])\n\nfor(i in jtrim){data.push([jtrim[i],ktrim[i]])}\nmsg.payload=[{series:nseries,\"data\":data,labels:[\"Jammu\",\"Srinagar\"]\n}]\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 340,
+        "wires": [
+            [
+                "323655072d07aa46",
+                "055894d9e16f7b19"
+            ]
+        ]
+    },
+    {
+        "id": "323655072d07aa46",
         "type": "debug",
         "z": "99999b8a6931f0b2",
         "name": "",
@@ -1508,8 +1533,24 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1090,
-        "y": 200,
+        "x": 1350,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "252f8e0bfb55800a",
+        "type": "debug",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1250,
+        "y": 260,
         "wires": []
     }
 ]
