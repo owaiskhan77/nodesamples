@@ -129,7 +129,7 @@
         "tab": "afea3e73df80298e",
         "order": 1,
         "disp": true,
-        "width": 4,
+        "width": "10",
         "collapse": false,
         "className": ""
     },
@@ -469,7 +469,8 @@
         "y": 420,
         "wires": [
             [
-                "d1b006ac9615e6d1"
+                "d1b006ac9615e6d1",
+                "807c56a060875a10"
             ]
         ]
     },
@@ -512,7 +513,8 @@
         "y": 280,
         "wires": [
             [
-                "d1b006ac9615e6d1"
+                "d1b006ac9615e6d1",
+                "521c65b85f09690d"
             ]
         ]
     },
@@ -783,7 +785,8 @@
         "y": 540,
         "wires": [
             [
-                "2e10f95800270d49"
+                "2e10f95800270d49",
+                "f1ca1223049a81f8"
             ]
         ]
     },
@@ -829,13 +832,45 @@
         ]
     },
     {
+        "id": "521c65b85f09690d",
+        "type": "debug",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "807c56a060875a10",
+        "type": "debug",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 420,
+        "wires": []
+    },
+    {
         "id": "b71ea77d46ce47f4",
         "type": "ui_button",
         "z": "99999b8a6931f0b2",
         "name": "",
         "group": "5ad478847c2d5ed0",
         "order": 3,
-        "width": 4,
+        "width": "10",
         "height": 1,
         "passthru": false,
         "label": "Get",
@@ -864,7 +899,7 @@
         "name": "",
         "group": "5ad478847c2d5ed0",
         "order": 2,
-        "width": 4,
+        "width": "10",
         "height": 1,
         "passthru": true,
         "label": "Reset",
@@ -892,9 +927,9 @@
         "id": "a217bfdc32724f4e",
         "type": "ui_table",
         "z": "99999b8a6931f0b2",
-        "group": "91e0bd3a7a01f1c1",
+        "group": "5ad478847c2d5ed0",
         "name": "Srinagar Collectors",
-        "order": 1,
+        "order": 6,
         "width": 5,
         "height": 9,
         "columns": [],
@@ -908,9 +943,9 @@
         "id": "6741d7d9949222f3",
         "type": "ui_table",
         "z": "99999b8a6931f0b2",
-        "group": "79d43152ec87748f",
+        "group": "5ad478847c2d5ed0",
         "name": "Jammu Collectors",
-        "order": 1,
+        "order": 5,
         "width": 5,
         "height": 9,
         "columns": [],
@@ -929,7 +964,7 @@
         "tooltip": "",
         "group": "5ad478847c2d5ed0",
         "order": 1,
-        "width": 4,
+        "width": "10",
         "height": 1,
         "wrap": false,
         "passthru": true,
@@ -1037,7 +1072,7 @@
         "group": "5ad478847c2d5ed0",
         "name": "ProgressBar",
         "order": 4,
-        "width": 4,
+        "width": "10",
         "height": 1,
         "format": "<style>\n    .w3-border {\n        border: 1px solid #ccc!important;\n    }\n    .w3-green, .w3-hover-green:hover {\n        color: #fff!important;\n        background-color: #4CAF50!important;\n    }\n</style>\n<div>\n    <div class=\"w3-border\">\n      <div class=\"w3-green\" style=\"height:5px; width:{{msg.counter}}%\"></div>\n        <div class=\"progress\">\n      <div class=\"determinate\" style=\"width: 70%\"></div>\n        </div>\n</div>\n</div>",
         "storeOutMessages": true,
@@ -1157,7 +1192,7 @@
         "group": "75f5394b01c07d88",
         "order": 3,
         "width": 5,
-        "height": 9,
+        "height": "12",
         "label": "Read Availability Status",
         "chartType": "bar",
         "legend": "true",
@@ -1333,7 +1368,7 @@
         "group": "75f5394b01c07d88",
         "order": 1,
         "width": 5,
-        "height": 9,
+        "height": "12",
         "label": "All Meter Details",
         "chartType": "bar",
         "legend": "true",
@@ -1394,7 +1429,7 @@
         "type": "function",
         "z": "99999b8a6931f0b2",
         "name": "",
-        "func": "var jtrim={};\nvar ktrim={};\nvar data=[];\nfor (var i in msg.payload)\n{\n\tif(msg.payload[i]['Last Billable Read']!=\"\"){\n\t [day, month, year]=msg.payload[i]['Last Billable Read'].split(\" \")[0].split(\"-\");\n\n\t\n\t switch (msg.payload[i].Meter.substring(0,1))\n\t\t{\n\t\tcase '3':\n\t\tif(Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7)) <=4)\n\t\t{\n\t\t\tif(jtrim[Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7))]){jtrim[Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7))]+=1;}\n\t\t\telse {jtrim[Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7))]=1;}\n\t\t}\n\t\telse {jtrim['Above 4']=jtrim['Above 4']+1||0;}\n\t\tbreak;\n\t\tcase '4':\n\t\tif(Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7)) <=4)\n\t\t{\n\t\t\tif(ktrim[Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7))]){ktrim[Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7))]+=1;}\n\t\t\telse {ktrim[Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7))]=1;}\n\t\t}\n\t\telse {ktrim['Above 4']=ktrim['Above 4']+1||0;}\n\t\tbreak;\n\t\t}\t\n\t}\n\t\n}\nvar nseries=[jtrim].reduce(function(acc,cur){\n\tfor (i in cur){acc.push(i+\"W\")}\n\t\treturn acc;\n},[])\n\nfor(i in jtrim){data.push([jtrim[i],ktrim[i]])}\nmsg.payload=[{series:nseries,\"data\":data,labels:[\"Jammu\",\"Srinagar\"]\n}]\n\nreturn msg;",
+        "func": "var jtrim={};\nvar ktrim={};\nvar data=[];\nfor (var i in msg.payload)\n{\n\tif(msg.payload[i]['Last Billable Read']!=\"\"){\n\t [day, month, year]=msg.payload[i]['Last Billable Read'].split(\" \")[0].split(\"-\");\n\n\t\n\t switch (msg.payload[i].Meter.substring(0,1))\n\t\t{\n\t\tcase '3':\n\t\tif(Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7)) <=4)\n\t\t{\n\t\t\tif(jtrim[Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7))]){jtrim[Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7))]+=1;}\n\t\t\telse {jtrim[Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7))]=1;}\n\t\t}\n\t\telse {jtrim['Above 5']=jtrim['Above 5']+1||0;}\n\t\tbreak;\n\t\tcase '4':\n\t\tif(Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7)) <=4)\n\t\t{\n\t\t\tif(ktrim[Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7))]){ktrim[Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7))]+=1;}\n\t\t\telse {ktrim[Math.floor((new Date()-new Date([year,month,day].join('-')))/(86400000*7))]=1;}\n\t\t}\n\t\telse {ktrim['Above 5']=ktrim['Above 5']+1||0;}\n\t\tbreak;\n\t\t}\t\n\t}\n\t\n}\nvar nseries=[jtrim].reduce(function(acc,cur){\n\tfor (i in cur){acc.push(i+\"W\")}\n\t\treturn acc;\n},[])\n\nfor(i in jtrim){data.push([jtrim[i],ktrim[i]])}\nmsg.payload=[{series:nseries,\"data\":data,labels:[\"Jammu\",\"Srinagar\"]\n}]\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
