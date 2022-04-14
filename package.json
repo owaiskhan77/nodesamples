@@ -2,7 +2,12 @@
     "name": "smartmeter",
     "description": "Creating UI dashboard from smart meter report files",
     "version": "0.0.1",
-    "dependencies": {},
+    "dependencies": {
+        "@mui/base": "^5.0.0-alpha.76",
+        "node-red-contrib-csvtojson": "0.0.2",
+        "node-red-contrib-loop-processing": "0.5.1",
+        "node-red-node-ui-table": "0.3.12"
+    },
     "node-red": {
         "settings": {
             "flowFile": "flows.json",
