@@ -1671,32 +1671,6 @@
         "wires": []
     },
     {
-        "id": "b40ea1d8.c700a",
-        "type": "ui_button",
-        "z": "d7fc6821db1af157",
-        "name": "",
-        "group": "160e81fb.f1c86e",
-        "order": 3,
-        "width": "2",
-        "height": "1",
-        "passthru": false,
-        "label": "Up",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "icon": "arrow_upwards",
-        "payload": "",
-        "payloadType": "str",
-        "topic": "up",
-        "x": 130,
-        "y": 240,
-        "wires": [
-            [
-                "3d4e5e51.bdf952"
-            ]
-        ]
-    },
-    {
         "id": "80940e39.5035b",
         "type": "ui_button",
         "z": "d7fc6821db1af157",
