@@ -408,7 +408,7 @@
         "to": "",
         "reg": false,
         "x": 380,
-        "y": 200,
+        "y": 40,
         "wires": [
             [
                 "f1ca1223049a81f8",
@@ -484,19 +484,18 @@
         "id": "f1ca1223049a81f8",
         "type": "function",
         "z": "fe058ad1849932aa",
-        "name": "",
-        "func": "var ec=0;\nvar ed=0;\nvar dc=0;\nvar domt=[];\nvar amt=0;\nvar ip=0;\nswitch(flow.get('rc'))\n{   \n    case '1':\n        switch(flow.get('flat'))\n        {\n            case false:\n                ip=flow.get('units');\n                if (ip <=100)\n                {domt.push({'RateComponent':'0-100Units','Charge':ip*1.69},\n                {'RateComponent':'Total EC','Charge':ip*1.69})\n                ec=ip*1.69;\n                ed=Math.round(ec*0.15);\n                domt.push({'RateComponent':'Electricity Duty','Charge':ed});\n                break;\n                }\n                else if (ip>100 && ip <=200)\n                {domt.push({'RateComponent':'0-100Units','Charge':169},\n                {'RateComponent':'100-200Units','Charge':(ip-100)*2.2},\n                {'RateComponent':'Total EC','Charge':169+(ip-100)*2.2}\n                )\n                ec=169+(ip-100)*2.2;\n                ed=Math.round(ec*0.15);\n                domt.push({'RateComponent':'Electricity Duty','Charge':ed});\n                break;\n                }\n                else if (ip>200 && ip <=400)\n                {domt.push({'RateComponent':'0-100Units','Charge':169},\n                {'RateComponent':'100-200Units','Charge':220},\n                {'RateComponent':'200-400Units','Charge':(ip-200)*3.3},\n                {'RateComponent':'Total EC','Charge':389+((ip-200)*3.3)})\n                ec=389+((ip-200)*3.3);\n                ed=Math.round(ec*0.15);\n                domt.push({'RateComponent':'Electricity Duty','Charge':ed});\n                break;\n                }\n                else if(ip > 400)\n                {domt.push({'RateComponent':'0-100Units','Charge':169},\n                {'RateComponent':'100-200Units','Charge':220},\n                {'RateComponent':'200-400Units','Charge':660},\n                {'RateComponent':'Above-400Units','Charge':(ip-400)*3.52},\n                {'RateComponent':'Total EC','Charge':1049+((ip-400)*3.52)})\n                ec=1049+((ip-400)*3.52);\n                ed=Math.round(ec*0.15);\n                domt.push({'RateComponent':'Electricity Duty','Charge':ed});\n                break;\n               }break;\n            case true:\n                var sload=flow.get('sl');\n                if (sload<=0.25){domt.push({'RateComponent':'upto 1/4 kW','Charge':99});ec=99;break;}\n                else if(sload>0.25 && sload<=0.5){domt.push({'RateComponent':'above 1/4 kW upto 1/2 kW ','Charge':325});ec=325;break;}\n                else if(sload>0.5 && sload<=0.75){domt.push({'RateComponent':'above 1/2 kW upto 3/4 kW ','Charge':495});ec=495;break;}\n                else if(sload>0.75 && sload <=1){domt.push({'RateComponent':'above 3/4 kW upto 1 kW ','Charge':650});ec=650;break;}\n                else if(sload>1 && sload <=2){ec=650+(Math.ceil((sload-1)/0.25)*155);\n                    domt.push({'RateComponent':'above 1 KW upto 2 KW ','Charge':ec});break;}\n                else if(sload>2){ec=1270+(Math.ceil((sload-2)/0.25)*155);\n                    domt.push({'RateComponent':'above 2 KW ','Charge':ec});break;}\n        }break;\n\n    case '2':\n        switch(flow.get('flat'))\n        {case false:\n            ip=flow.get('units');\n            if (flow.get('phase')==3){ec=ip*5.01;domt.push({'RateComponent':'For All Units','Charge':ec});break;}\n        }break;\n    case '3':\n        msg.payload = flow.get('units')*5.52;\n        break;  \n    default:\n        msg.payload = flow.get('units')*6.52;\n\n    \n}\nswitch(flow.get('rc'))\n{ case '1':\n    switch(flow.get('flat')){    \n        case false:\n            dc=flow.get('sl')*5.5;\n            domt.push({'RateComponent':'Demand Charges','Charge':dc});\n            domt.push({'RateComponent':'Total Bill Amount','Charge':ec+ed+dc})\n            break;\n        case true:\n            domt.push({'RateComponent':'Electricity Duty','Charge':ec*0.15});\n            domt.push({'RateComponent':'Total Bill Amount','Charge':ec*1.15});\n            break;}break;\n  case '2':\n    switch(flow.get('flat'))\n    {    \n        case false:\n            if(flow.get('phase')==3)\n                {dc=Math.ceil(flow.get('sl')/0.5)*52.25;\n                ed=ec*0.15;\n                domt.push({'RateComponent':'Demand Charges','Charge':dc});\n                domt.push({'RateComponent':'Total Bill Amount','Charge':ec+ed+dc});break;\n                \n                }\n            else {break;}break;\n        case true:\n            {break;}\n        \n    }  \n}\n\n\nmsg.payload=domt;\nreturn msg",
+        "name": "Dom/Comm",
+        "func": "var ec=0;\nvar ed=0;\nvar dc=0;\nvar domt=[];\nvar amt=0;\nvar ip=0;\nvar sload=flow.get('sl');\nswitch(flow.get('rc'))\n{   \n    case '1':\n        switch(flow.get('flat'))\n        {\n            case false:\n                ip=flow.get('units');\n                if (ip <=100)\n                {domt.push({'RateComponent':'0-100Units','Charge':ip*1.69},\n                {'RateComponent':'Total EC','Charge':ip*1.69})\n                ec=ip*1.69;\n                ed=Math.round(ec*0.15);\n                domt.push({'RateComponent':'Electricity Duty','Charge':ed});\n                break;\n                }\n                else if (ip>100 && ip <=200)\n                {domt.push({'RateComponent':'0-100Units','Charge':169},\n                {'RateComponent':'100-200Units','Charge':(ip-100)*2.2},\n                {'RateComponent':'Total EC','Charge':169+(ip-100)*2.2}\n                )\n                ec=169+(ip-100)*2.2;\n                ed=Math.round(ec*0.15);\n                domt.push({'RateComponent':'Electricity Duty','Charge':ed});\n                break;\n                }\n                else if (ip>200 && ip <=400)\n                {domt.push({'RateComponent':'0-100Units','Charge':169},\n                {'RateComponent':'100-200Units','Charge':220},\n                {'RateComponent':'200-400Units','Charge':(ip-200)*3.3},\n                {'RateComponent':'Total EC','Charge':389+((ip-200)*3.3)})\n                ec=389+((ip-200)*3.3);\n                ed=Math.round(ec*0.15);\n                domt.push({'RateComponent':'Electricity Duty','Charge':ed});\n                break;\n                }\n                else if(ip > 400)\n                {domt.push({'RateComponent':'0-100Units','Charge':169},\n                {'RateComponent':'100-200Units','Charge':220},\n                {'RateComponent':'200-400Units','Charge':660},\n                {'RateComponent':'Above-400Units','Charge':(ip-400)*3.52},\n                {'RateComponent':'Total EC','Charge':1049+((ip-400)*3.52)})\n                ec=1049+((ip-400)*3.52);\n                ed=Math.round(ec*0.15);\n                domt.push({'RateComponent':'Electricity Duty','Charge':ed});\n                break;\n               }break;\n            case true:\n                if (sload<=0.25){domt.push({'RateComponent':'upto 1/4 kW','Charge':99});ec=99;break;}\n                else if(sload>0.25 && sload<=0.5){domt.push({'RateComponent':'above 1/4 kW upto 1/2 kW ','Charge':325});ec=325;break;}\n                else if(sload>0.5 && sload<=0.75){domt.push({'RateComponent':'above 1/2 kW upto 3/4 kW ','Charge':495});ec=495;break;}\n                else if(sload>0.75 && sload <=1){domt.push({'RateComponent':'above 3/4 kW upto 1 kW ','Charge':650});ec=650;break;}\n                else if(sload>1 && sload <=2){ec=650+(Math.ceil((sload-1)/0.25)*155);\n                    domt.push({'RateComponent':'above 1 KW upto 2 KW ','Charge':ec});break;}\n                else if(sload>2){ec=1270+(Math.ceil((sload-2)/0.25)*510);\n                    domt.push({'RateComponent':'above 2 KW ','Charge':ec});break;}\n        }break;\n\n    case '2':\n        switch(flow.get('flat'))\n        {\n            case false:\n            ip=flow.get('units');\n            if (flow.get('phase')==3){ec=ip*5.01;domt.push({'RateComponent':'For All Units','Charge':ec});break;}\n            else {ip=flow.get('units');\n                if (ip <=100)\n                {domt.push({'RateComponent':'0-100Units','Charge':ip*2.81},\n                {'RateComponent':'Total EC','Charge':ip*2.81})\n                ec=ip*2.81;\n                ed=Math.round(ec*0.15);\n                domt.push({'RateComponent':'Electricity Duty','Charge':ed});\n                break;\n                }\n                else if (ip>100 && ip <=200)\n                {domt.push({'RateComponent':'0-100Units','Charge':281},\n                {'RateComponent':'100-200Units','Charge':(ip-100)*2.97},\n                {'RateComponent':'Total EC','Charge':169+(ip-100)*2.97}\n                )\n                ec=281+(ip-100)*2.2;\n                ed=Math.round(ec*0.15);\n                domt.push({'RateComponent':'Electricity Duty','Charge':ed});\n                break;\n                }\n                else if (ip>200 && ip <=300)\n                {domt.push({'RateComponent':'0-100Units','Charge':281},\n                {'RateComponent':'100-200Units','Charge':297},\n                {'RateComponent':'200-300Units','Charge':(ip-200)*4.29},\n                {'RateComponent':'Total EC','Charge':578+((ip-200)*4.29)})\n                ec=578+((ip-200)*4.29);\n                ed=Math.round(ec*0.15);\n                domt.push({'RateComponent':'Electricity Duty','Charge':ed});\n                break;\n                }\n                else if(ip > 300)\n                {domt.push({'RateComponent':'0-100Units','Charge':281},\n                {'RateComponent':'100-200Units','Charge':297},\n                {'RateComponent':'200-300Units','Charge':429},\n                {'RateComponent':'Above-300Units','Charge':(ip-300)*4.62},\n                {'RateComponent':'Total EC','Charge':1007+((ip-300)*4.62)})\n                ec=1007+((ip-300)*4.62);\n                ed=Math.round(ec*0.15);\n                domt.push({'RateComponent':'Electricity Duty','Charge':ed});\n                break;\n               }break;\n            }break;\n            case true:\n                {\n                    if (sload<=0.25){domt.push({'RateComponent':'upto 1/4 kW','Charge':310});ec=310;break;}\n                    else if(sload>0.25 && sload<=0.5){domt.push({'RateComponent':'above 1/4 kW upto 1/2 kW ','Charge':800});ec=800;break;}\n                    else if(sload>0.5 && sload <=1){domt.push({'RateComponent':'above 3/4 kW upto 1 kW ','Charge':1587});ec=1587;break;}\n                    else if(sload>1){ec=2136+(Math.ceil((sload-1))*2136);\n                        domt.push({'RateComponent':'above 2 KW ','Charge':ec});break;}\n                        break;\n                }        \n            \n        }break;\n    case '3':\n        msg.payload = flow.get('units')*5.52;\n        break;  \n    default:\n        msg.payload = flow.get('units')*6.52;\n\n    \n}\nswitch(flow.get('rc'))\n{ case '1':\n    switch(flow.get('flat')){    \n        case false:\n            dc=flow.get('sl')*5.5;\n            domt.push({'RateComponent':'Demand Charges','Charge':dc});\n            domt.push({'RateComponent':'Total Bill Amount','Charge':ec+ed+dc})\n            break;\n        case true:\n            domt.push({'RateComponent':'Electricity Duty','Charge':ec*0.15});\n            domt.push({'RateComponent':'Total Bill Amount','Charge':ec*1.15});\n            break;}break;\n  case '2':\n    switch(flow.get('flat'))\n    {    \n        case false:\n            if(flow.get('phase')==3)\n                {dc=Math.ceil(sload/0.5)*52.25;\n                ed=ec*0.15;\n                domt.push({'RateComponent':'Demand Charges','Charge':dc});\n                domt.push({'RateComponent':'Total Bill Amount','Charge':ec+ed+dc});break;\n                }\n            else {\n                dc=Math.ceil(sload/0.5)*22;\n                ed=ec*0.15;\n                domt.push({'RateComponent':'Demand Charges','Charge':dc});\n                domt.push({'RateComponent':'Total Bill Amount','Charge':ec+ed+dc});\n                break;}break;\n        case true:\n            {domt.push({'RateComponent':'Electricity Duty','Charge':ec*0.15});\n            domt.push({'RateComponent':'Total Bill Amount','Charge':ec*1.15});\n            break;}break;\n        \n    }  \n}\n\n\nmsg.payload=domt;\nreturn msg",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 640,
-        "y": 420,
+        "x": 690,
+        "y": 340,
         "wires": [
             [
-                "d1b006ac9615e6d1",
-                "807c56a060875a10"
+                "d1b006ac9615e6d1"
             ]
         ]
     },
@@ -535,12 +534,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 600,
-        "y": 280,
+        "x": 660,
+        "y": 240,
         "wires": [
             [
-                "d1b006ac9615e6d1",
-                "521c65b85f09690d"
+                "d1b006ac9615e6d1"
             ]
         ]
     },
@@ -577,8 +575,8 @@
         "z": "fe058ad1849932aa",
         "name": "",
         "events": "all",
-        "x": 760,
-        "y": 160,
+        "x": 840,
+        "y": 120,
         "wires": [
             [
                 "fffb357f1bfbaf0a"
@@ -596,17 +594,17 @@
         "order": 1,
         "width": 3,
         "height": 3,
-        "wrap": false,
+        "wrap": true,
         "passthru": true,
         "topic": "topic",
         "topicType": "msg",
         "format": "{{value}}",
         "min": "1",
         "max": "3",
-        "step": "2",
+        "step": "4",
         "className": "",
-        "x": 910,
-        "y": 100,
+        "x": 1010,
+        "y": 80,
         "wires": [
             [
                 "3a1157cb3352fb7e"
@@ -624,8 +622,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 560,
-        "y": 200,
+        "x": 680,
+        "y": 140,
         "wires": [
             [
                 "ab168107e6c6978b"
@@ -651,8 +649,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 560,
-        "y": 120,
+        "x": 680,
+        "y": 60,
         "wires": [
             [
                 "ab168107e6c6978b"
@@ -720,8 +718,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 3,
-        "x": 390,
-        "y": 540,
+        "x": 510,
+        "y": 500,
         "wires": [
             [
                 "3fd273803c86c42f"
@@ -753,8 +751,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 580,
-        "y": 540,
+        "x": 720,
+        "y": 520,
         "wires": [
             [
                 "818b3d0495f0921c"
@@ -780,8 +778,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 440,
-        "y": 640,
+        "x": 500,
+        "y": 660,
         "wires": [
             [
                 "818b3d0495f0921c"
@@ -807,30 +805,13 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 890,
-        "y": 540,
+        "x": 1030,
+        "y": 580,
         "wires": [
             [
-                "2e10f95800270d49",
                 "f1ca1223049a81f8"
             ]
         ]
-    },
-    {
-        "id": "2e10f95800270d49",
-        "type": "debug",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1090,
-        "y": 620,
-        "wires": []
     },
     {
         "id": "3a1157cb3352fb7e",
@@ -851,43 +832,13 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1020,
-        "y": 180,
+        "x": 1140,
+        "y": 160,
         "wires": [
-            []
+            [
+                "f1ca1223049a81f8"
+            ]
         ]
-    },
-    {
-        "id": "521c65b85f09690d",
-        "type": "debug",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 790,
-        "y": 240,
-        "wires": []
-    },
-    {
-        "id": "807c56a060875a10",
-        "type": "debug",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 910,
-        "y": 420,
-        "wires": []
     },
     {
         "id": "b71ea77d46ce47f4",
@@ -1196,7 +1147,7 @@
         "type": "file in",
         "z": "99999b8a6931f0b2",
         "name": "",
-        "filename": "D:\\jlab\\report.csv",
+        "filename": "/root/jlab/report.csv",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
@@ -1513,29 +1464,6 @@
         "wires": []
     },
     {
-        "id": "993d7272.843ae",
-        "type": "fs-file-lister",
-        "z": "d7fc6821db1af157",
-        "name": "Files",
-        "start": "/home/pi",
-        "pattern": "*.*",
-        "folders": "*",
-        "hidden": false,
-        "lstype": "files",
-        "path": true,
-        "single": true,
-        "depth": 0,
-        "stat": true,
-        "showWarnings": false,
-        "x": 530,
-        "y": 160,
-        "wires": [
-            [
-                "dd88bd23.37cde"
-            ]
-        ]
-    },
-    {
         "id": "d185a45.2327a58",
         "type": "inject",
         "z": "d7fc6821db1af157",
@@ -1648,9 +1576,9 @@
         "y": 220,
         "wires": [
             [
-                "993d7272.843ae",
                 "399ac341.7d43bc",
-                "5219875b.c070d8"
+                "4a72dd4f8b17aabc",
+                "f09829f1aeb9c925"
             ]
         ]
     },
@@ -1737,29 +1665,6 @@
         "wires": [
             [
                 "3d4e5e51.bdf952"
-            ]
-        ]
-    },
-    {
-        "id": "5219875b.c070d8",
-        "type": "fs-file-lister",
-        "z": "d7fc6821db1af157",
-        "name": "Folders",
-        "start": "/home/pi",
-        "pattern": "*.*",
-        "folders": "*",
-        "hidden": false,
-        "lstype": "directories",
-        "path": true,
-        "single": true,
-        "depth": 0,
-        "stat": true,
-        "showWarnings": false,
-        "x": 540,
-        "y": 260,
-        "wires": [
-            [
-                "ebc234be.d53fe8"
             ]
         ]
     },
@@ -1857,6 +1762,52 @@
         "y": 260,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "4a72dd4f8b17aabc",
+        "type": "fs-file-lister",
+        "z": "d7fc6821db1af157",
+        "name": "Files",
+        "start": "/home/pi",
+        "pattern": "*.*",
+        "folders": "*",
+        "hidden": false,
+        "lstype": "files",
+        "path": true,
+        "single": true,
+        "depth": 0,
+        "stat": true,
+        "showWarnings": false,
+        "x": 530,
+        "y": 160,
+        "wires": [
+            [
+                "dd88bd23.37cde"
+            ]
+        ]
+    },
+    {
+        "id": "f09829f1aeb9c925",
+        "type": "fs-file-lister",
+        "z": "d7fc6821db1af157",
+        "name": "Folders",
+        "start": "/home/pi",
+        "pattern": "*.*",
+        "folders": "*",
+        "hidden": false,
+        "lstype": "directories",
+        "path": true,
+        "single": true,
+        "depth": 0,
+        "stat": true,
+        "showWarnings": false,
+        "x": 540,
+        "y": 260,
+        "wires": [
+            [
+                "ebc234be.d53fe8"
+            ]
         ]
     }
 ]
