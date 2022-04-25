@@ -555,7 +555,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 640,
+        "x": 580,
         "y": 40,
         "wires": [
             [
@@ -810,7 +810,7 @@
         "type": "ui_dropdown",
         "z": "fe058ad1849932aa",
         "name": "",
-        "label": "Unit",
+        "label": "LIN",
         "tooltip": "",
         "place": "Select option",
         "group": "9b8d585caa85f70e",
@@ -824,11 +824,57 @@
         "topic": "topic",
         "topicType": "msg",
         "className": "",
-        "x": 830,
+        "x": 730,
         "y": 40,
         "wires": [
-            []
+            [
+                "df95cc93a199de23"
+            ]
         ]
+    },
+    {
+        "id": "df95cc93a199de23",
+        "type": "change",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "loadunits",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 910,
+        "y": 100,
+        "wires": [
+            [
+                "b9a0c74226bf4fe9"
+            ]
+        ]
+    },
+    {
+        "id": "b9a0c74226bf4fe9",
+        "type": "debug",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1190,
+        "y": 120,
+        "wires": []
     },
     {
         "id": "b71ea77d46ce47f4",
