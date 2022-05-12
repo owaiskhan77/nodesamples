@@ -347,8 +347,8 @@
         "max": "100000",
         "step": "1",
         "className": "",
-        "x": 170,
-        "y": 600,
+        "x": 230,
+        "y": 520,
         "wires": [
             [
                 "6f5d226a54c0c14b"
@@ -381,7 +381,8 @@
                 "9a1463b566d310bd",
                 "8da582bd2798c2b3",
                 "2482b5670303ad3f",
-                "7ab4ef6958198881"
+                "7ab4ef6958198881",
+                "e8acd40f0c5361b3"
             ]
         ]
     },
@@ -404,11 +405,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 610,
-        "y": 240,
+        "x": 570,
+        "y": 220,
         "wires": [
             [
-                "2482b5670303ad3f"
+                "2482b5670303ad3f",
+                "e8acd40f0c5361b3"
             ]
         ]
     },
@@ -511,7 +513,8 @@
         "wires": [
             [
                 "2482b5670303ad3f",
-                "7ab4ef6958198881"
+                "7ab4ef6958198881",
+                "e8acd40f0c5361b3"
             ]
         ]
     },
@@ -535,7 +538,7 @@
         "max": "3",
         "step": "4",
         "className": "",
-        "x": 1010,
+        "x": 1130,
         "y": 40,
         "wires": [
             [
@@ -638,8 +641,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 6,
-        "x": 370,
-        "y": 680,
+        "x": 130,
+        "y": 700,
         "wires": [
             [
                 "3fd273803c86c42f",
@@ -776,7 +779,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1200,
+        "x": 1340,
         "y": 40,
         "wires": [
             [
@@ -795,8 +798,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1150,
-        "y": 220,
+        "x": 1270,
+        "y": 140,
         "wires": [
             [
                 "d1b006ac9615e6d1"
@@ -876,8 +879,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 910,
-        "y": 100,
+        "x": 930,
+        "y": 40,
         "wires": [
             [
                 "2482b5670303ad3f",
@@ -993,7 +996,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1190,
+        "x": 1170,
         "y": 460,
         "wires": [
             [
@@ -1081,10 +1084,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1080,
-        "y": 860,
+        "x": 1200,
+        "y": 880,
         "wires": [
-            []
+            [
+                "e8acd40f0c5361b3"
+            ]
         ]
     },
     {
@@ -1236,14 +1241,109 @@
         "topicType": "msg",
         "format": "{{value}}",
         "min": 0,
-        "max": "0",
+        "max": "100000",
         "step": 1,
         "className": "",
-        "x": 1350,
-        "y": 320,
+        "x": 350,
+        "y": 100,
         "wires": [
-            []
+            [
+                "024da9f07c32600f"
+            ]
         ]
+    },
+    {
+        "id": "e8acd40f0c5361b3",
+        "type": "function",
+        "z": "fe058ad1849932aa",
+        "name": "HTI",
+        "func": "var domt=[];\nvar units=flow.get('units');\nvar sload=flow.get('sl');\nvar demand=flow.get('dem');\nvar styp=flow.get('stype')\nswitch (flow.get('rc'))\n{\n    case '7.2':\n    if(sload>demand || demand==0)\n        {\n        switch(styp)\n                { case true:\n                    ec=units*2.95;\n                    dc=sload*136.5;\n                    domt.push(\n                \t{'RateComponent':'Total Energy Charges','Charge':Math.ceil(ec)},\n                \t{'RateComponent':'Electricity Duty','Charge':Math.ceil((ec)*0.15)},\n                \t{'RateComponent':'Demand Charges','Charge':dc},\n                \t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(ec+ec*0.15+dc)}); break;   \n                 case false:\n                \n            }\n        }\n}\nmsg.payload=domt;\nmsg.enabled=true\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1350,
+        "y": 340,
+        "wires": [
+            [
+                "d1b006ac9615e6d1",
+                "0f276744f42a9308"
+            ]
+        ]
+    },
+    {
+        "id": "024da9f07c32600f",
+        "type": "change",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "dem",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 590,
+        "y": 160,
+        "wires": [
+            [
+                "e8acd40f0c5361b3"
+            ]
+        ]
+    },
+    {
+        "id": "6d96831448fee4b4",
+        "type": "inject",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 150,
+        "y": 100,
+        "wires": [
+            [
+                "21fb2626bdbaa2bf"
+            ]
+        ]
+    },
+    {
+        "id": "0f276744f42a9308",
+        "type": "debug",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1470,
+        "y": 520,
+        "wires": []
     },
     {
         "id": "b71ea77d46ce47f4",
