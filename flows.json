@@ -669,8 +669,7 @@
             [
                 "72274631d670d262",
                 "43988f0755b9b74d",
-                "eff27d14cd0d81e6",
-                "301bc45650239138"
+                "eff27d14cd0d81e6"
             ]
         ]
     },
@@ -1242,7 +1241,7 @@
         "passthru": true,
         "topic": "topic",
         "topicType": "msg",
-        "format": "{{value}}",
+        "format": "{{flow.get('dem')}}",
         "min": 0,
         "max": "100000",
         "step": 1,
@@ -1260,13 +1259,13 @@
         "type": "function",
         "z": "fe058ad1849932aa",
         "name": "HTI",
-        "func": "var text='';\nvar domt=[];\nvar units=flow.get('units');\nvar sload=flow.get('sl');\nvar demand=flow.get('dem');\nvar effdemand=0;\nvar styp=flow.get('stype')\nswitch (flow.get('rc'))\n{\n    case '7.2':\n        {\n        if  (demand<=0.75*sload){effdemand=0.75*sload}\n        else if (demand>0.75*sload && demand<=sload){effdemand=demand}\n        switch(styp)\n                {   \n                    case true:\n                    ec=units*2.95;\n                    dc=effdemand*136.5;\n                    domt.push(\n                \t{'RateComponent':'Total Energy Charges','Charge':ec},\n                \t{'RateComponent':'Electricity Duty','Charge':ec*0.15},\n                \t{'RateComponent':'Demand Charges','Charge':dc},\n                \t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(ec+ec*0.15+dc)}); break;   \n                    case false:\n                    ec=units*2.86;\n                    dc=effdemand*136.5;\n                    if(flow.get('htlt') && sload>117.6471){ec=ec*1.05;dc=dc*1.05;text=' With 5pc SC'}\n                    domt.push(\n                \t{'RateComponent':'Total Energy Charges'+text,'Charge':ec},\n                \t{'RateComponent':'Electricity Duty','Charge':ec*0.15},\n                \t{'RateComponent':'Demand Charges'+text,'Charge':dc},\n                \t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(ec+ec*0.15+dc)}); break;\n                \n                }\n        if (demand>sload)\n        {domt=[];\n        switch(styp)\n            {\n                case true:\n                    const excessdemand=demand-sload;\n                    const excessUnits=units-(sload/demand)*units\n                    let dc=sload*136.5\n                    const excessdc=excessdemand*136.5*2\n                    let ec=units*2.95\n                    const excessec=excessUnits*2.95*2\n                    let tec=ec+excessec\n                    let tdc=dc+excessdc\n                    const ed=tec*0.15\n                    if(flow.get('htlt') && sload>117.6471){tec=tec*1.05;tdc=tdc*1.05;text=' With 5pc SC'}\n                    domt.push(\n                \t{'RateComponent':'Energy Charges','Charge':ec},\n                \t{'RateComponent':'Excess Energy Charges','Charge':excessec},\n                \t{'RateComponent':'Total Energy Charges'+text,'Charge':tec},\n                \t{'RateComponent':'Demand Charges','Charge':dc},\n                \t{'RateComponent':'Excess Demand Charges','Charge':excessdc},\n                \t{'RateComponent':'Total Demand Charges'+text,'Charge':tdc},\n                \t{'RateComponent':'Electricity Duty','Charge':ed},\n                \t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(ec+excessec+dc+excessdc+ed)});break;\n                case false:{}break;\n                    \n                    \n            }\n        }    \n        }\n}\nmsg.payload=domt;\nmsg.enabled=true\nreturn msg;",
+        "func": "var text='';\nvar domt=[];\nvar units=flow.get('units');\nvar sload=flow.get('sl');\nvar demand=flow.get('dem');\nvar effdemand=0;\nvar styp=flow.get('stype')\nswitch (flow.get('rc'))\n{\n    case '7.2':\n        {\n        if  (demand<=0.75*sload){effdemand=0.75*sload}\n        else if (demand>0.75*sload && demand<=sload){effdemand=demand}\n        let ec=0;\n        let dc=0;\n        switch(styp)\n                {   \n                    case true:\n                    ec=units*2.95;\n                    dc=effdemand*136.5;\n                    if(flow.get('htlt') && sload>117.6471){ec=ec*1.05;dc=dc*1.05;text=' With 5pc SC'}\n                    domt.push(\n                \t{'RateComponent':'Total Energy Charges '+text,'Charge':ec},\n                \t{'RateComponent':'Electricity Duty','Charge':ec*0.15},\n                \t{'RateComponent':'Demand Charges '+text,'Charge':dc},\n                \t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(ec+ec*0.15+dc)}); break;   \n                    case false:\n                    ec=units*2.86;\n                    dc=effdemand*136.5;\n                    domt.push(\n                \t{'RateComponent':'Total Energy Charges','Charge':ec},\n                \t{'RateComponent':'Electricity Duty','Charge':ec*0.15},\n                \t{'RateComponent':'Demand Charges','Charge':dc},\n                \t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(ec+ec*0.15+dc)}); break;\n                \n                }\n        if (demand>sload)\n        {domt=[];\n        let excessdemand=0;\n        let excessUnits=0;\n        let excessdc=0;\n        let excessec=0;\n        let tec=0;\n        let tdc=0;\n        let ed=0;\n        switch(styp)\n            {\n                case true:\n                    excessdemand=demand-sload;\n                    excessUnits=units-(sload/demand)*units\n                    dc=sload*136.5\n                    excessdc=excessdemand*136.5*2\n                    ec=units*2.95\n                    excessec=excessUnits*2.95*2\n                    tec=ec+excessec\n                    tdc=dc+excessdc\n                    ed=tec*0.15\n                    if(flow.get('htlt') && sload>117.6471){tec=tec*1.05;tdc=tdc*1.05;text=' With 5pc SC'}\n                    domt.push(\n                \t{'RateComponent':'Energy Charges','Charge':ec},\n                \t{'RateComponent':'Excess Energy Charges','Charge':excessec},\n                \t{'RateComponent':'Total Energy Charges'+text,'Charge':tec},\n                \t{'RateComponent':'Demand Charges','Charge':dc},\n                \t{'RateComponent':'Excess Demand Charges','Charge':excessdc},\n                \t{'RateComponent':'Total Demand Charges'+text,'Charge':tdc},\n                \t{'RateComponent':'Electricity Duty','Charge':ed},\n                \t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(tec+tdc+ed)});break;\n                case false:\n                    excessdemand=demand-sload;\n                    excessUnits=units-(sload/demand)*units\n                    dc=sload*136.5\n                    excessdc=excessdemand*136.5*2\n                    ec=units*2.86\n                    excessec=excessUnits*2.86*2\n                    tec=ec+excessec\n                    tdc=dc+excessdc\n                    ed=tec*0.15\n                    if(flow.get('htlt') && sload>117.6471){tec=tec*1.05;tdc=tdc*1.05;text=' With 5pc SC'}\n                    domt.push(\n                \t{'RateComponent':'Energy Charges','Charge':ec},\n                \t{'RateComponent':'Excess Energy Charges','Charge':excessec},\n                \t{'RateComponent':'Total Energy Charges'+text,'Charge':tec},\n                \t{'RateComponent':'Demand Charges','Charge':dc},\n                \t{'RateComponent':'Excess Demand Charges','Charge':excessdc},\n                \t{'RateComponent':'Total Demand Charges'+text,'Charge':tdc},\n                \t{'RateComponent':'Electricity Duty','Charge':ed},\n                \t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(tec+tdc+ed)});break;\n                    \n                    \n            }\n        }    \n        }\n}\nmsg.payload=domt;\nmsg.enabled=true\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1350,
+        "x": 1530,
         "y": 340,
         "wires": [
             [
@@ -1350,7 +1349,7 @@
         "wires": []
     },
     {
-        "id": "f9144c50f0ac10e4",
+        "id": "53aed6072e62989e",
         "type": "gate",
         "z": "fe058ad1849932aa",
         "name": "",
@@ -1363,8 +1362,8 @@
         "statusCmd": "status",
         "persist": false,
         "storeName": "memory",
-        "x": 1790,
-        "y": 360,
+        "x": 1490,
+        "y": 180,
         "wires": [
             [
                 "d1b006ac9615e6d1"
@@ -1372,43 +1371,130 @@
         ]
     },
     {
-        "id": "010db3e58357dcaa",
-        "type": "gate",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "controlTopic": "control",
-        "defaultState": "open",
-        "openCmd": "open",
-        "closeCmd": "close",
-        "toggleCmd": "toggle",
-        "defaultCmd": "default",
-        "statusCmd": "status",
-        "persist": false,
-        "storeName": "memory",
-        "x": 1570,
-        "y": 100,
-        "wires": [
-            [
-                "d1b006ac9615e6d1"
-            ]
-        ]
-    },
-    {
-        "id": "301bc45650239138",
+        "id": "f2a7a4165c53b8e1",
         "type": "function",
         "z": "fe058ad1849932aa",
-        "name": "",
-        "func": "msg.topic='control'\nmsg.control='open'\nreturn msg;",
+        "name": "op Control",
+        "func": "if (['7.2','7.3','8'].includes(flow.get('rc'))){msg.topic='control';msg.payload='close';}\nelse {msg.topic='control';msg.payload='open'}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 240,
-        "y": 860,
+        "x": 850,
+        "y": 140,
         "wires": [
             [
-                "010db3e58357dcaa"
+                "53aed6072e62989e"
+            ]
+        ]
+    },
+    {
+        "id": "f211dd8fb32f5c17",
+        "type": "ui_switch",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "label": "Meter on HT/LT",
+        "tooltip": "",
+        "group": "9b8d585caa85f70e",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 1440,
+        "y": 1120,
+        "wires": [
+            [
+                "cd185735d4446c51"
+            ]
+        ]
+    },
+    {
+        "id": "0565e7c1a48ef9e4",
+        "type": "inject",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 1370,
+        "y": 900,
+        "wires": [
+            [
+                "f211dd8fb32f5c17"
+            ]
+        ]
+    },
+    {
+        "id": "c70ab51d827b652b",
+        "type": "function",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "func": "if(flow.get('rc')=='7.2'){msg.enabled=true}\nelse {msg.enabled=false}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 580,
+        "wires": [
+            [
+                "f211dd8fb32f5c17"
+            ]
+        ]
+    },
+    {
+        "id": "cd185735d4446c51",
+        "type": "change",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "htlt",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1490,
+        "y": 640,
+        "wires": [
+            [
+                "e8acd40f0c5361b3"
             ]
         ]
     },
@@ -2379,156 +2465,6 @@
         "wires": [
             [
                 "ebc234be.d53fe8"
-            ]
-        ]
-    },
-    {
-        "id": "53aed6072e62989e",
-        "type": "gate",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "controlTopic": "control",
-        "defaultState": "open",
-        "openCmd": "open",
-        "closeCmd": "close",
-        "toggleCmd": "toggle",
-        "defaultCmd": "default",
-        "statusCmd": "status",
-        "persist": false,
-        "storeName": "memory",
-        "x": 1510,
-        "y": 100,
-        "wires": [
-            [
-                "d1b006ac9615e6d1"
-            ]
-        ]
-    },
-    {
-        "id": "f2a7a4165c53b8e1",
-        "type": "function",
-        "z": "fe058ad1849932aa",
-        "name": "op Control",
-        "func": "if (['7.2','7.3','8'].includes(flow.get('rc'))){msg.topic='control';msg.payload='close';}\nelse {msg.topic='control';msg.payload='open'}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 850,
-        "y": 140,
-        "wires": [
-            [
-                "53aed6072e62989e"
-            ]
-        ]
-    },
-    {
-        "id": "f211dd8fb32f5c17",
-        "type": "ui_switch",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "label": "Meter on HT/LT",
-        "tooltip": "",
-        "group": "9b8d585caa85f70e",
-        "order": 6,
-        "width": 0,
-        "height": 0,
-        "passthru": true,
-        "decouple": "false",
-        "topic": "topic",
-        "topicType": "msg",
-        "style": "",
-        "onvalue": "true",
-        "onvalueType": "bool",
-        "onicon": "",
-        "oncolor": "",
-        "offvalue": "false",
-        "offvalueType": "bool",
-        "officon": "",
-        "offcolor": "",
-        "animate": false,
-        "className": "",
-        "x": 1460,
-        "y": 780,
-        "wires": [
-            [
-                "cd185735d4446c51"
-            ]
-        ]
-    },
-    {
-        "id": "0565e7c1a48ef9e4",
-        "type": "inject",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "true",
-        "payloadType": "bool",
-        "x": 1370,
-        "y": 900,
-        "wires": [
-            [
-                "f211dd8fb32f5c17"
-            ]
-        ]
-    },
-    {
-        "id": "c70ab51d827b652b",
-        "type": "function",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "func": "if(flow.get('rc')=='7.2'){msg.enabled=true}\nelse {msg.enabled=false}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 320,
-        "y": 580,
-        "wires": [
-            [
-                "f211dd8fb32f5c17"
-            ]
-        ]
-    },
-    {
-        "id": "cd185735d4446c51",
-        "type": "change",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "htlt",
-                "pt": "flow",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1490,
-        "y": 640,
-        "wires": [
-            [
-                "e8acd40f0c5361b3"
             ]
         ]
     }
