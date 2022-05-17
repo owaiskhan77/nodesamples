@@ -458,7 +458,7 @@
         "columns": [],
         "outputs": 0,
         "cts": false,
-        "x": 1510,
+        "x": 1730,
         "y": 180,
         "wires": []
     },
@@ -667,7 +667,8 @@
             [
                 "72274631d670d262",
                 "43988f0755b9b74d",
-                "eff27d14cd0d81e6"
+                "eff27d14cd0d81e6",
+                "301bc45650239138"
             ]
         ]
     },
@@ -792,17 +793,17 @@
         "type": "function",
         "z": "fe058ad1849932aa",
         "name": "fnDom/Comm/SC/Agri/LTI",
-        "func": "var ec=0;\nvar ed=0;\nvar dc=0;\nvar domt=[];\nvar out=[];\nvar amt=0;\nvar ip=0;\nvar sload=flow.get('sl');\nvar dom=function(rc,level,lc,ec,dc,text=''){\nvar objDom=[{\"1\":{'RateComponent':'0-100Units','Charge':169},\"2\":{'RateComponent':'0-100Units','Charge':281},\n\"3P\":{'RateComponent':'Energy Charges ','Charge':0},\"4\":{'RateComponent':'Energy Charges'+text,'Charge':0},\n\"7.1A\":{'RateComponent':'Energy Charges ','Charge':0},\"7.1B\":{'RateComponent':'Energy Charges'+text ,'Charge':0}\n},\n{\"1\":{'RateComponent':'100-200Units','Charge':220},\"2\":{'RateComponent':'100-200Units','Charge':297}},\n{\"1\":{'RateComponent':'200-400Units','Charge':330},\"2\":{'RateComponent':'200-300Units','Charge':429}},\n{\"1\":{'RateComponent':'Above 400Units','Charge':0},\"2\":{'RateComponent':'Above 300Units','Charge':0}}]\n\nfor (let i=0;i <=level;i++)\n{ domt.push(objDom[i][rc]);\nif (i==level && flow.get('capacitor')==false ){domt[i][\"Charge\"]=lc;\nlet cap=Math.ceil(ec*0.1);\ndomt.push(\n    //{'RateComponent':'Energy charges','Charge':ec},\n\t{'RateComponent':'Capacitor Charges','Charge':cap},\n\t{'RateComponent':'Total Energy Charges','Charge':Math.ceil(ec+cap)},\n\t{'RateComponent':'Electricity Duty','Charge':Math.ceil((ec+cap)*0.15)},\n\t{'RateComponent':'Demand Charges'+text,'Charge':dc},\n\t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(ec+Math.ceil((ec+cap)*0.15)+dc+cap)})}\nelse if (i==level){domt[i][\"Charge\"]=lc;\ndomt.push({'RateComponent':'Total Energy charges','Charge':ec},\n\t{'RateComponent':'Electricity Duty','Charge':Math.ceil(ec*0.15)},\n\t{'RateComponent':'Demand Charges'+text,'Charge':dc},\n\t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(ec+Math.ceil(ec*0.15)+dc)})}\n }\n\nreturn domt;\n}\nvar domflat=function(ec){domt.push({'RateComponent':'Electricity Duty','Charge':ec*0.15},\n{'RateComponent':'Total Bill Amount','Charge':Math.ceil(ec*1.15)});\nreturn domt;}\nvar ratecode=flow.get('rc');\nswitch(flow.get('rc'))\n{   \n    case '1':\n        switch(flow.get('flat'))\n        {\n            case false:\n                ip=flow.get('units');\n                if (ip <=100)\n                {\n                dom(ratecode,0,ip*1.69,ip*1.69,sload*5.5);\n                break;\n                }\n                else if (ip>100 && ip <=200)\n                {dom(ratecode,1,(ip-100)*2.2,169+(ip-100)*2.2,sload*5.5);\n                break;\n                }\n                else if (ip>200 && ip <=400)\n                {dom(ratecode,2,(ip-200)*3.3,389+(ip-200)*3.3,sload*5.5);\n                break;\n                }\n                else if(ip > 400)\n                {dom(ratecode,3,(ip-400)*3.52,1049+(ip-400)*3.52,sload*5.5);\n                break;\n               }break;\n            case true:\n             if (sload<=0.25){domt.push({'RateComponent':'upto 1/4 kW','Charge':99});ec=99;domflat(ec);break;}\n                else if(sload>0.25 && sload<=0.5){domt.push({'RateComponent':'above 1/4 kW upto 1/2 kW ','Charge':325});ec=325;domflat(ec);break;}\n                else if(sload>0.5 && sload<=0.75){domt.push({'RateComponent':'above 1/2 kW upto 3/4 kW ','Charge':495});ec=495;domflat(ec);break;}\n                else if(sload>0.75 && sload <=1){domt.push({'RateComponent':'above 3/4 kW upto 1 kW ','Charge':650});ec=650;domflat(ec);break;}\n                else if(sload>1 && sload <=2){ec=650+(Math.ceil((sload-1)/0.25)*155);\n                    domt.push({'RateComponent':'above 1 KW upto 2 KW ','Charge':ec});domflat(ec);break;}\n                else if(sload>2){ec=1270+(Math.ceil((sload-2)/0.25)*510);\n                    domt.push({'RateComponent':'above 2 KW ','Charge':ec});domflat(ec);break;}                \n\n        }break;\n    case '2':\n        \n        if(flow.get('phase')==3){\n            ip=flow.get('units');\n            dom(\"3P\",0,ip*5.01,ip*5.01,104.5*sload);break;}\n        else{    \n        switch(flow.get('flat'))\n        {\n            case false:\n                ip=flow.get('units');\n                if (ip <=100)\n                {\n                dom(ratecode,0,ip*2.81,ip*2.81,sload*44);\n                break;\n                }\n                else if (ip>100 && ip <=200)\n                {dom(ratecode,1,(ip-100)*2.97,281+(ip-100)*2.97,sload*44);\n                break;\n                }\n                else if (ip>200 && ip <=300)\n                {dom(ratecode,2,(ip-200)*4.29,578+(ip-200)*4.29,sload*44);\n                break;\n                }\n                else if(ip > 300)\n                {dom(ratecode,3,(ip-300)*4.62,1007+(ip-300)*4.62,sload*44);\n                break;\n               }break;\n            case true:\n             if (sload<=0.25){domt.push({'RateComponent':'upto 1/4 kW','Charge':310});ec=310;domflat(ec);break;}\n                else if(sload>0.25 && sload<=0.5){domt.push({'RateComponent':'above 1/4 kW upto 1/2 kW ','Charge':800});ec=800;domflat(ec);break;}\n                else if(sload>0.5 && sload<=1){domt.push({'RateComponent':'above 1/2 kW upto 1 kW ','Charge':1587});ec=1587;domflat(ec);break;}\n                else if(sload>1){ec=2136+(Math.ceil(sload-1)*2136);\n                    domt.push({'RateComponent':'above 1 KW ','Charge':ec});domflat(ec);break;}                \n\n        }\n            \n    }break;\n    case '3':\n        ip=flow.get('units');\n        sload=flow.get('sl');\n        {dom('3P',0,ip*6.88,ip*6.88,sload*30)}\n        break;\n    case '4':\n        switch(flow.get('flat'))\n        {\n        case false:\n            ip=flow.get('units');\n            if(sload<=10){dom('4',0,ip*0.66,ip*0.66,sload*15,'0-10HP');break}\n            if(sload>10 && sload<=20){dom('4',0,ip*0.72,ip*0.72,sload*20,'11-20HP');break}\n            if(sload>20){dom('4',0,ip*5.23,ip*5.23,sload*40,'Above 20HP');break}break;\n        case true:\n            if(sload<=10){domt.push({'RateComponent':'0-10HP','Charge':205.35*sload});ec=205.35*sload;domflat(ec);break}\n            if(sload>10 && sload<=20){domt.push({'RateComponent':'11-20HP','Charge':222*sload});ec=222*sload;domflat(ec);break}\n            if(sload>20){domt.push({'RateComponent':'Above 20HP','Charge':1415.25*sload});ec=1415.25*sload;domflat(ec);break}\n            \n        }break;\n    case '7.1':\n        switch(flow.get('loadunits'))\n        {case 'KW':\n            ip=flow.get('units');\n            if(sload<=50)\n            {dom('7.1A',0,ip*3.3,ip*3.3,sload*50);break}\n            else {dom('7.1B',0,(ip/0.85)*3.09,(ip/0.85)*3.09,(sload/0.89)*47,'(PF Applied)');break}break\n        case 'KVA':\n            ip=flow.get('units');\n            {dom('7.1A',0,ip*3.09,ip*3.09,sload*47);break}break\n        case 'HP':\n            ip=flow.get('units');\n            if(sload<=15 && flow.get('ltis')){dom('7.1A',0,ip*3.3,ip*3.3,sload*21);break}\n            else{dom('7.1A',0,ip*3.3,ip*3.3,sload*50);break}\n        }\n        break;\n        \n    default:\n        msg.payload = flow.get('units')*6.52;\n\n    \n}\nmsg.payload=domt;\nmsg.enabled=true;\nreturn msg",
+        "func": "var ec=0;\nvar ed=0;\nvar dc=0;\nvar domt=[];\nvar out=[];\nvar amt=0;\nvar ip=0;\nvar sload=flow.get('sl');\nvar dom=function(rc,level,lc,ec,dc,text=''){\nvar objDom=[{\"1\":{'RateComponent':'0-100Units','Charge':169},\"2\":{'RateComponent':'0-100Units','Charge':281},\n\"3P\":{'RateComponent':'Energy Charges ','Charge':0},\"4\":{'RateComponent':'Energy Charges'+text,'Charge':0},\n\"7.1A\":{'RateComponent':'Energy Charges ','Charge':0},\"7.1B\":{'RateComponent':'Energy Charges'+text ,'Charge':0}\n},\n{\"1\":{'RateComponent':'100-200Units','Charge':220},\"2\":{'RateComponent':'100-200Units','Charge':297}},\n{\"1\":{'RateComponent':'200-400Units','Charge':330},\"2\":{'RateComponent':'200-300Units','Charge':429}},\n{\"1\":{'RateComponent':'Above 400Units','Charge':0},\"2\":{'RateComponent':'Above 300Units','Charge':0}}]\n\nfor (let i=0;i <=level;i++)\n{ domt.push(objDom[i][rc]);\nif (i==level && flow.get('capacitor')==false ){domt[i][\"Charge\"]=lc;\nlet cap=Math.ceil(ec*0.1);\ndomt.push(\n    //{'RateComponent':'Energy charges','Charge':ec},\n\t{'RateComponent':'Capacitor Charges','Charge':cap},\n\t{'RateComponent':'Total Energy Charges','Charge':Math.ceil(ec+cap)},\n\t{'RateComponent':'Electricity Duty','Charge':Math.ceil((ec+cap)*0.15)},\n\t{'RateComponent':'Demand Charges'+text,'Charge':dc},\n\t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(ec+Math.ceil((ec+cap)*0.15)+dc+cap)})}\nelse if (i==level){domt[i][\"Charge\"]=lc;\ndomt.push({'RateComponent':'Total Energy charges','Charge':ec},\n\t{'RateComponent':'Electricity Duty','Charge':Math.ceil(ec*0.15)},\n\t{'RateComponent':'Demand Charges'+text,'Charge':dc},\n\t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(ec+Math.ceil(ec*0.15)+dc)})}\n }\n\nreturn domt;\n}\nvar domflat=function(ec){domt.push({'RateComponent':'Electricity Duty','Charge':ec*0.15},\n{'RateComponent':'Total Bill Amount','Charge':Math.ceil(ec*1.15)});\nreturn domt;}\nvar ratecode=flow.get('rc');\nswitch(flow.get('rc'))\n{   \n    case '1':\n        switch(flow.get('flat'))\n        {\n            case false:\n                ip=flow.get('units');\n                if (ip <=100)\n                {\n                dom(ratecode,0,ip*1.69,ip*1.69,sload*5.5);\n                break;\n                }\n                else if (ip>100 && ip <=200)\n                {dom(ratecode,1,(ip-100)*2.2,169+(ip-100)*2.2,sload*5.5);\n                break;\n                }\n                else if (ip>200 && ip <=400)\n                {dom(ratecode,2,(ip-200)*3.3,389+(ip-200)*3.3,sload*5.5);\n                break;\n                }\n                else if(ip > 400)\n                {dom(ratecode,3,(ip-400)*3.52,1049+(ip-400)*3.52,sload*5.5);\n                break;\n               }break;\n            case true:\n             if (sload<=0.25){domt.push({'RateComponent':'upto 1/4 kW','Charge':99});ec=99;domflat(ec);break;}\n                else if(sload>0.25 && sload<=0.5){domt.push({'RateComponent':'above 1/4 kW upto 1/2 kW ','Charge':325});ec=325;domflat(ec);break;}\n                else if(sload>0.5 && sload<=0.75){domt.push({'RateComponent':'above 1/2 kW upto 3/4 kW ','Charge':495});ec=495;domflat(ec);break;}\n                else if(sload>0.75 && sload <=1){domt.push({'RateComponent':'above 3/4 kW upto 1 kW ','Charge':650});ec=650;domflat(ec);break;}\n                else if(sload>1 && sload <=2){ec=650+(Math.ceil((sload-1)/0.25)*155);\n                    domt.push({'RateComponent':'above 1 KW upto 2 KW ','Charge':ec});domflat(ec);break;}\n                else if(sload>2){ec=1270+(Math.ceil((sload-2)/0.25)*510);\n                    domt.push({'RateComponent':'above 2 KW ','Charge':ec});domflat(ec);break;}                \n\n        }break;\n    case '2':\n        \n        if(flow.get('phase')==3){\n            ip=flow.get('units');\n            dom(\"3P\",0,ip*5.01,ip*5.01,104.5*sload);break;}\n        else{    \n        switch(flow.get('flat'))\n        {\n            case false:\n                ip=flow.get('units');\n                if (ip <=100)\n                {\n                dom(ratecode,0,ip*2.81,ip*2.81,sload*44);\n                break;\n                }\n                else if (ip>100 && ip <=200)\n                {dom(ratecode,1,(ip-100)*2.97,281+(ip-100)*2.97,sload*44);\n                break;\n                }\n                else if (ip>200 && ip <=300)\n                {dom(ratecode,2,(ip-200)*4.29,578+(ip-200)*4.29,sload*44);\n                break;\n                }\n                else if(ip > 300)\n                {dom(ratecode,3,(ip-300)*4.62,1007+(ip-300)*4.62,sload*44);\n                break;\n               }break;\n            case true:\n             if (sload<=0.25){domt.push({'RateComponent':'upto 1/4 kW','Charge':310});ec=310;domflat(ec);break;}\n                else if(sload>0.25 && sload<=0.5){domt.push({'RateComponent':'above 1/4 kW upto 1/2 kW ','Charge':800});ec=800;domflat(ec);break;}\n                else if(sload>0.5 && sload<=1){domt.push({'RateComponent':'above 1/2 kW upto 1 kW ','Charge':1587});ec=1587;domflat(ec);break;}\n                else if(sload>1){ec=2136+(Math.ceil(sload-1)*2136);\n                    domt.push({'RateComponent':'above 1 KW ','Charge':ec});domflat(ec);break;}                \n\n        }\n            \n    }break;\n    case '3':\n        ip=flow.get('units');\n        sload=flow.get('sl');\n        {dom('3P',0,ip*6.88,ip*6.88,sload*30)}\n        break;\n    case '4':\n        switch(flow.get('flat'))\n        {\n        case false:\n            ip=flow.get('units');\n            if(sload<=10){dom('4',0,ip*0.66,ip*0.66,sload*15,'0-10HP');break}\n            if(sload>10 && sload<=20){dom('4',0,ip*0.72,ip*0.72,sload*20,'11-20HP');break}\n            if(sload>20){dom('4',0,ip*5.23,ip*5.23,sload*40,'Above 20HP');break}break;\n        case true:\n            if(sload<=10){domt.push({'RateComponent':'0-10HP','Charge':205.35*sload});ec=205.35*sload;domflat(ec);break}\n            if(sload>10 && sload<=20){domt.push({'RateComponent':'11-20HP','Charge':222*sload});ec=222*sload;domflat(ec);break}\n            if(sload>20){domt.push({'RateComponent':'Above 20HP','Charge':1415.25*sload});ec=1415.25*sload;domflat(ec);break}\n            \n        }break;\n    case '7.1':\n        switch(flow.get('loadunits'))\n        {case 'KW':\n            ip=flow.get('units');\n            if(sload<=50)\n            {dom('7.1A',0,ip*3.3,ip*3.3,sload*50);break}\n            else {dom('7.1B',0,(ip/0.85)*3.09,(ip/0.85)*3.09,(sload/0.89)*47,'(PF Applied)');break}break\n        case 'KVA':\n            ip=flow.get('units');\n            {dom('7.1A',0,ip*3.09,ip*3.09,sload*47);break}break\n        case 'HP':\n            ip=flow.get('units');\n            if(sload<=15 && flow.get('ltis')){dom('7.1A',0,ip*3.3,ip*3.3,sload*21);break}\n            else{dom('7.1A',0,ip*3.3,ip*3.3,sload*50);break}\n        }\n        break;\n        \n    default:\n        msg.payload = flow.get('units')*6.52;\n\n    \n}\nmsg.payload=domt;\nmsg.enabled=true;\nmsg.topic='control';\nmsg.signal='close'\nreturn msg",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1270,
-        "y": 140,
+        "x": 1350,
+        "y": 160,
         "wires": [
             [
-                "d1b006ac9615e6d1"
+                "010db3e58357dcaa"
             ]
         ]
     },
@@ -1210,7 +1211,7 @@
         "type": "function",
         "z": "fe058ad1849932aa",
         "name": "",
-        "func": "if(['1','7.2','7.3','8'].includes(flow.get('rc')) ){msg.enabled=false;msg.payload=true}\nelse if (flow.get('loadunits')=='KVA' && flow.get('rc')=='7.1' && flow.get('sl')>50) {msg.enabled=false;msg.payload=true}\nelse if (flow.get('rc')=='2' && flow.get('sl')<=5) {msg.enabled=false;msg.payload=true}\nelse {msg.enabled=true;msg.payload=false;msg.ratecode=flow.get('rc');msg.loadunits=flow.get('loadunits'),msg.sancload=flow.get('sl')}\nreturn msg;",
+        "func": "if(['1','7.2','7.3','8'].includes(flow.get('rc')) ){msg.enabled=false;msg.payload=false}\nelse if (flow.get('loadunits')=='KVA' && flow.get('rc')=='7.1' && flow.get('sl')>50) {msg.enabled=false;msg.payload=true}\nelse if (flow.get('rc')=='2' && flow.get('sl')<=5) {msg.enabled=false;msg.payload=true}\nelse {msg.enabled=true;msg.payload=false;msg.ratecode=flow.get('rc');msg.loadunits=flow.get('loadunits'),msg.sancload=flow.get('sl')}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1257,18 +1258,18 @@
         "type": "function",
         "z": "fe058ad1849932aa",
         "name": "HTI",
-        "func": "var domt=[];\nvar units=flow.get('units');\nvar sload=flow.get('sl');\nvar demand=flow.get('dem');\nvar styp=flow.get('stype')\nswitch (flow.get('rc'))\n{\n    case '7.2':\n    if(sload>demand || demand==0)\n        {\n        switch(styp)\n                { case true:\n                    ec=units*2.95;\n                    dc=sload*136.5;\n                    domt.push(\n                \t{'RateComponent':'Total Energy Charges','Charge':Math.ceil(ec)},\n                \t{'RateComponent':'Electricity Duty','Charge':Math.ceil((ec)*0.15)},\n                \t{'RateComponent':'Demand Charges','Charge':dc},\n                \t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(ec+ec*0.15+dc)}); break;   \n                 case false:\n                \n            }\n        }\n}\nmsg.payload=domt;\nmsg.enabled=true\nreturn msg;",
+        "func": "var domt=[];\nvar units=flow.get('units');\nvar sload=flow.get('sl');\nvar demand=flow.get('dem');\nvar styp=flow.get('stype')\nswitch (flow.get('rc'))\n{\n    case '7.2':\n    if(demand>sload){}\n    else {\n        switch(styp)\n                { case true:\n                    ec=units*2.95;\n                    dc=sload*136.5;\n                    domt.push(\n                \t{'RateComponent':'Total Energy Charges','Charge':Math.ceil(ec)},\n                \t{'RateComponent':'Electricity Duty','Charge':Math.ceil((ec)*0.15)},\n                \t{'RateComponent':'Demand Charges','Charge':dc},\n                \t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(ec+ec*0.15+dc)}); break;   \n                 case false:\n                     break;\n                \n            }\n    }\n}\nmsg.payload=domt;\nmsg.enabled=true\nmsg.topic='control'\nmsg.signal='close'\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1350,
-        "y": 340,
+        "x": 1410,
+        "y": 480,
         "wires": [
             [
-                "d1b006ac9615e6d1",
-                "0f276744f42a9308"
+                "0f276744f42a9308",
+                "f9144c50f0ac10e4"
             ]
         ]
     },
@@ -1341,9 +1342,72 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1470,
-        "y": 520,
+        "x": 1570,
+        "y": 780,
         "wires": []
+    },
+    {
+        "id": "f9144c50f0ac10e4",
+        "type": "gate",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "controlTopic": "control",
+        "defaultState": "open",
+        "openCmd": "open",
+        "closeCmd": "close",
+        "toggleCmd": "toggle",
+        "defaultCmd": "default",
+        "statusCmd": "status",
+        "persist": false,
+        "storeName": "memory",
+        "x": 1790,
+        "y": 360,
+        "wires": [
+            [
+                "d1b006ac9615e6d1"
+            ]
+        ]
+    },
+    {
+        "id": "010db3e58357dcaa",
+        "type": "gate",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "controlTopic": "control",
+        "defaultState": "open",
+        "openCmd": "open",
+        "closeCmd": "close",
+        "toggleCmd": "toggle",
+        "defaultCmd": "default",
+        "statusCmd": "status",
+        "persist": false,
+        "storeName": "memory",
+        "x": 1570,
+        "y": 100,
+        "wires": [
+            [
+                "d1b006ac9615e6d1"
+            ]
+        ]
+    },
+    {
+        "id": "301bc45650239138",
+        "type": "function",
+        "z": "fe058ad1849932aa",
+        "name": "",
+        "func": "msg.topic='control'\nmsg.control='open'\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 860,
+        "wires": [
+            [
+                "010db3e58357dcaa"
+            ]
+        ]
     },
     {
         "id": "b71ea77d46ce47f4",
