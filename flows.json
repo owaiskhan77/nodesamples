@@ -316,7 +316,7 @@
         "topicType": "msg",
         "format": "{{flow.get('loadunits')}}",
         "min": 0,
-        "max": "100000",
+        "max": "999999",
         "step": "1",
         "className": "",
         "x": 320,
@@ -1344,8 +1344,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1570,
-        "y": 780,
+        "x": 1670,
+        "y": 760,
         "wires": []
     },
     {
