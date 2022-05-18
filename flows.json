@@ -179,7 +179,7 @@
         "tab": "3a6aa5e1d59f4f1f",
         "order": 4,
         "disp": true,
-        "width": 6,
+        "width": 8,
         "collapse": false,
         "className": ""
     },
@@ -210,6 +210,46 @@
         "icon": "dashboard",
         "disabled": false,
         "hidden": false
+    },
+    {
+        "id": "2c4dd6577eea3d7b",
+        "type": "ui_spacer",
+        "z": "fe058ad1849932aa",
+        "name": "spacer",
+        "group": "7b368e5a4be11b54",
+        "order": 2,
+        "width": 8,
+        "height": 1
+    },
+    {
+        "id": "34704005c23dcf37",
+        "type": "ui_spacer",
+        "z": "fe058ad1849932aa",
+        "name": "spacer",
+        "group": "7b368e5a4be11b54",
+        "order": 3,
+        "width": 8,
+        "height": 1
+    },
+    {
+        "id": "d0209098a295d926",
+        "type": "ui_spacer",
+        "z": "fe058ad1849932aa",
+        "name": "spacer",
+        "group": "7b368e5a4be11b54",
+        "order": 4,
+        "width": 8,
+        "height": 1
+    },
+    {
+        "id": "339197c67ea7fb13",
+        "type": "ui_spacer",
+        "z": "fe058ad1849932aa",
+        "name": "spacer",
+        "group": "7b368e5a4be11b54",
+        "order": 5,
+        "width": 8,
+        "height": 1
     },
     {
         "id": "918eaa1814b8248e",
@@ -422,7 +462,7 @@
         "z": "fe058ad1849932aa",
         "name": "",
         "group": "9b8d585caa85f70e",
-        "order": 10,
+        "order": 11,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -455,8 +495,8 @@
         "group": "7b368e5a4be11b54",
         "name": "",
         "order": 1,
-        "width": 6,
-        "height": 5,
+        "width": "8",
+        "height": "7",
         "columns": [],
         "outputs": 0,
         "cts": false,
@@ -553,7 +593,7 @@
         "type": "function",
         "z": "fe058ad1849932aa",
         "name": "",
-        "func": "switch(flow.get('rc'))\n{ \n    case \"1\":\n    msg.payload=\"KW\"\n    msg.options=[\"KW\"]\n    break;\n    case \"2\":\n    msg.payload=\"KW\"\n    msg.options=[\"KW\"]\n    break;\n    case \"3\":\n    msg.payload=\"KW\"\n    msg.options=[\"KW\"];break;\n    case \"4\":\n    msg.payload=\"HP\"\n    msg.options=[\"HP\"];break;\n    case \"7.1\":\n    msg.payload=\"KW\"\n    msg.options=[\"KW\",\"HP\",\"KVA\"];break;\n    case \"7.2\":\n    msg.payload=\"KVA\"\n    msg.options=[\"KVA\"];break;\n    \n}\nreturn msg;",
+        "func": "switch(flow.get('rc'))\n{ \n    case \"1\":\n    msg.payload=\"KW\"\n    msg.options=[\"KW\"]\n    break;\n    case \"2\":\n    msg.payload=\"KW\"\n    msg.options=[\"KW\"]\n    break;\n    case \"3\":\n    msg.payload=\"KW\"\n    msg.options=[\"KW\"];break;\n    case \"4\":\n    msg.payload=\"HP\"\n    msg.options=[\"HP\"];break;\n    case \"7.1\":\n    msg.payload=\"KW\"\n    msg.options=[\"KW\",\"HP\",\"KVA\"];break;\n    case \"7.2\":\n    msg.payload=\"KVA\"\n    msg.options=[\"KVA\",\"KW\"];break;\n    \n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -886,7 +926,8 @@
         "wires": [
             [
                 "2482b5670303ad3f",
-                "7ab4ef6958198881"
+                "7ab4ef6958198881",
+                "e8acd40f0c5361b3"
             ]
         ]
     },
@@ -926,7 +967,7 @@
         "label": "LTISII",
         "tooltip": "",
         "group": "9b8d585caa85f70e",
-        "order": 7,
+        "order": 8,
         "width": 0,
         "height": 0,
         "passthru": true,
@@ -1041,7 +1082,7 @@
         "label": "33kV/11kV",
         "tooltip": "",
         "group": "9b8d585caa85f70e",
-        "order": 8,
+        "order": 9,
         "width": 0,
         "height": 0,
         "passthru": true,
@@ -1129,7 +1170,7 @@
         "label": "Capacitor",
         "tooltip": "",
         "group": "9b8d585caa85f70e",
-        "order": 9,
+        "order": 10,
         "width": 0,
         "height": 0,
         "passthru": true,
@@ -1212,7 +1253,7 @@
         "type": "function",
         "z": "fe058ad1849932aa",
         "name": "",
-        "func": "if(['1','7.2','7.3','8'].includes(flow.get('rc')) ){msg.enabled=false;msg.payload=false}\nelse if (flow.get('loadunits')=='KVA' && flow.get('rc')=='7.1' && flow.get('sl')>50) {msg.enabled=false;msg.payload=true}\nelse if (flow.get('rc')=='2' && flow.get('sl')<=5) {msg.enabled=false;msg.payload=true}\nelse {msg.enabled=true;msg.payload=false;msg.ratecode=flow.get('rc');msg.loadunits=flow.get('loadunits'),msg.sancload=flow.get('sl')}\nreturn msg;",
+        "func": "if(['7.2','7.3','8'].includes(flow.get('rc')) ){msg.enabled=false;msg.payload=false}\nelse if(flow.get('rc')=='1'){msg.enabled=false;msg.payload=true}\nelse if (flow.get('loadunits')=='KVA' && flow.get('rc')=='7.1' && flow.get('sl')>50) {msg.enabled=false;msg.payload=true}\nelse if (flow.get('rc')=='2' && flow.get('sl')<=5) {msg.enabled=false;msg.payload=true}\nelse {msg.enabled=true;msg.payload=false;msg.ratecode=flow.get('rc');msg.loadunits=flow.get('loadunits'),msg.sancload=flow.get('sl')}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1234,7 +1275,7 @@
         "label": "MaxDemand",
         "tooltip": "",
         "group": "7b368e5a4be11b54",
-        "order": 1,
+        "order": 6,
         "width": 0,
         "height": 0,
         "wrap": false,
@@ -1259,7 +1300,7 @@
         "type": "function",
         "z": "fe058ad1849932aa",
         "name": "HTI",
-        "func": "var text='';\nvar domt=[];\nvar units=flow.get('units');\nvar sload=flow.get('sl');\nvar demand=flow.get('dem');\nvar effdemand=0;\nvar styp=flow.get('stype')\nswitch (flow.get('rc'))\n{\n    case '7.2':\n        {\n        if  (demand<=0.75*sload){effdemand=0.75*sload}\n        else if (demand>0.75*sload && demand<=sload){effdemand=demand}\n        let ec=0;\n        let dc=0;\n        switch(styp)\n                {   \n                    case true:\n                    ec=units*2.95;\n                    dc=effdemand*136.5;\n                    if(flow.get('htlt') && sload>117.6471){ec=ec*1.05;dc=dc*1.05;text=' With 5pc SC'}\n                    domt.push(\n                \t{'RateComponent':'Total Energy Charges '+text,'Charge':ec},\n                \t{'RateComponent':'Electricity Duty','Charge':ec*0.15},\n                \t{'RateComponent':'Demand Charges '+text,'Charge':dc},\n                \t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(ec+ec*0.15+dc)}); break;   \n                    case false:\n                    ec=units*2.86;\n                    dc=effdemand*136.5;\n                    domt.push(\n                \t{'RateComponent':'Total Energy Charges','Charge':ec},\n                \t{'RateComponent':'Electricity Duty','Charge':ec*0.15},\n                \t{'RateComponent':'Demand Charges','Charge':dc},\n                \t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(ec+ec*0.15+dc)}); break;\n                \n                }\n        if (demand>sload)\n        {domt=[];\n        let excessdemand=0;\n        let excessUnits=0;\n        let excessdc=0;\n        let excessec=0;\n        let tec=0;\n        let tdc=0;\n        let ed=0;\n        switch(styp)\n            {\n                case true:\n                    excessdemand=demand-sload;\n                    excessUnits=units-(sload/demand)*units\n                    dc=sload*136.5\n                    excessdc=excessdemand*136.5*2\n                    ec=units*2.95\n                    excessec=excessUnits*2.95*2\n                    tec=ec+excessec\n                    tdc=dc+excessdc\n                    ed=tec*0.15\n                    if(flow.get('htlt') && sload>117.6471){tec=tec*1.05;tdc=tdc*1.05;text=' With 5pc SC'}\n                    domt.push(\n                \t{'RateComponent':'Energy Charges','Charge':ec},\n                \t{'RateComponent':'Excess Energy Charges','Charge':excessec},\n                \t{'RateComponent':'Total Energy Charges'+text,'Charge':tec},\n                \t{'RateComponent':'Demand Charges','Charge':dc},\n                \t{'RateComponent':'Excess Demand Charges','Charge':excessdc},\n                \t{'RateComponent':'Total Demand Charges'+text,'Charge':tdc},\n                \t{'RateComponent':'Electricity Duty','Charge':ed},\n                \t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(tec+tdc+ed)});break;\n                case false:\n                    excessdemand=demand-sload;\n                    excessUnits=units-(sload/demand)*units\n                    dc=sload*136.5\n                    excessdc=excessdemand*136.5*2\n                    ec=units*2.86\n                    excessec=excessUnits*2.86*2\n                    tec=ec+excessec\n                    tdc=dc+excessdc\n                    ed=tec*0.15\n                    if(flow.get('htlt') && sload>117.6471){tec=tec*1.05;tdc=tdc*1.05;text=' With 5pc SC'}\n                    domt.push(\n                \t{'RateComponent':'Energy Charges','Charge':ec},\n                \t{'RateComponent':'Excess Energy Charges','Charge':excessec},\n                \t{'RateComponent':'Total Energy Charges'+text,'Charge':tec},\n                \t{'RateComponent':'Demand Charges','Charge':dc},\n                \t{'RateComponent':'Excess Demand Charges','Charge':excessdc},\n                \t{'RateComponent':'Total Demand Charges'+text,'Charge':tdc},\n                \t{'RateComponent':'Electricity Duty','Charge':ed},\n                \t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(tec+tdc+ed)});break;\n                    \n                    \n            }\n        }    \n        }\n}\nmsg.payload=domt;\nmsg.enabled=true\nreturn msg;",
+        "func": "var text='';\nvar domt=[];\nvar units=flow.get('units');\nvar sload=flow.get('sl');\nvar demand=flow.get('dem');\nvar effdemand=0;\nvar styp=flow.get('stype')\nvar ltype=flow.get('loadunits')\nif(ltype==\"KW\"){sload=sload/0.85}\nswitch (flow.get('rc'))\n{\n    case '7.2':\n        {\n        if  (demand<=0.75*sload){effdemand=0.75*sload}\n        else if (demand>0.75*sload && demand<=sload){effdemand=demand}\n        let ec=0;\n        let dc=0;\n        switch(styp)\n                {   \n                    case true:\n                    ec=units*2.95;\n                    dc=effdemand*136.5;\n                    if(flow.get('htlt') && sload>117.6471){ec=ec*1.05;dc=dc*1.05;text=' With 5pc SC'}\n                    domt.push(\n                \t{'RateComponent':'Total Energy Charges '+text,'Charge':ec},\n                \t{'RateComponent':'Electricity Duty','Charge':ec*0.15},\n                \t{'RateComponent':'Demand Charges '+text,'Charge':dc},\n                \t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(ec+ec*0.15+dc)}); break;   \n                    case false:\n                    ec=units*2.86;\n                    dc=effdemand*136.5;\n                    domt.push(\n                \t{'RateComponent':'Total Energy Charges','Charge':ec},\n                \t{'RateComponent':'Electricity Duty','Charge':ec*0.15},\n                \t{'RateComponent':'Demand Charges','Charge':dc},\n                \t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(ec+ec*0.15+dc)}); break;\n                \n                }\n        if (demand>sload)\n        {domt=[];\n        let excessdemand=0;\n        let excessUnits=0;\n        let excessdc=0;\n        let excessec=0;\n        let tec=0;\n        let tdc=0;\n        let ed=0;\n        switch(styp)\n            {\n                case true:\n                    excessdemand=demand-sload;\n                    excessUnits=(units-(units/demand)*sload);\n                    dc=sload*136.5\n                    excessdc=excessdemand*136.5*2\n                    ec=(units/demand)*sload*2.95\n                    excessec=excessUnits*2.95*2\n                    tec=ec+excessec\n                    tdc=dc+excessdc\n                    ed=tec*0.15\n                    if(flow.get('htlt') && sload>117.6471){tec=tec*1.05;tdc=tdc*1.05;text=' With 5pc SC'}\n                    domt.push(\n                \t{'RateComponent':'Energy Charges for '+(units/demand)*sload+'Units','Charge':ec},\n                \t{'RateComponent':'Excess Energy Charges for '+excessUnits+' Units','Charge':excessec},\n                \t{'RateComponent':'Total Energy Charges'+text,'Charge':tec},\n                \t{'RateComponent':'Demand Charges for '+sload,'Charge':dc},\n                \t{'RateComponent':'Excess Demand Charges for'+excessdemand,'Charge':excessdc},\n                \t{'RateComponent':'Total Demand Charges'+text,'Charge':tdc},\n                \t{'RateComponent':'Electricity Duty','Charge':ed},\n                \t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(tec+tdc+ed)});break;\n                case false:\n                    excessdemand=demand-sload;\n                    excessUnits=(units-(units/demand)*sload);\n                    dc=sload*136.5\n                    excessdc=excessdemand*136.5*2\n                    ec=(units/demand)*sload*2.86\n                    excessec=excessUnits*2.86*2\n                    tec=ec+excessec\n                    tdc=dc+excessdc\n                    ed=tec*0.15\n                    if(flow.get('htlt') && sload>117.6471){tec=tec*1.05;tdc=tdc*1.05;text=' With 5pc SC'}\n                    domt.push(\n                \t{'RateComponent':'Energy Charges for '+(units/demand)*sload+'Units','Charge':ec},\n                \t{'RateComponent':'Excess Energy Charges '+excessUnits+' Units','Charge':excessec},\n                \t{'RateComponent':'Total Energy Charges'+text,'Charge':tec},\n                \t{'RateComponent':'Demand Charges for '+sload,'Charge':dc},\n                \t{'RateComponent':'Excess Demand Charges for'+excessdemand,'Charge':excessdc},\n                \t{'RateComponent':'Total Demand Charges'+text,'Charge':tdc},\n                \t{'RateComponent':'Electricity Duty','Charge':ed},\n                \t{'RateComponent':'Total Bill Amount','Charge':Math.ceil(tec+tdc+ed)});break;\n                    \n                    \n            }\n        }    \n        }\n}\nmsg.payload=domt;\nmsg.enabled=true\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1269,8 +1310,7 @@
         "y": 340,
         "wires": [
             [
-                "d1b006ac9615e6d1",
-                "0f276744f42a9308"
+                "d1b006ac9615e6d1"
             ]
         ]
     },
@@ -1332,23 +1372,6 @@
         ]
     },
     {
-        "id": "0f276744f42a9308",
-        "type": "debug",
-        "z": "fe058ad1849932aa",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1670,
-        "y": 760,
-        "wires": []
-    },
-    {
         "id": "53aed6072e62989e",
         "type": "gate",
         "z": "fe058ad1849932aa",
@@ -1397,7 +1420,7 @@
         "label": "Meter on HT/LT",
         "tooltip": "",
         "group": "9b8d585caa85f70e",
-        "order": 6,
+        "order": 7,
         "width": 0,
         "height": 0,
         "passthru": true,
