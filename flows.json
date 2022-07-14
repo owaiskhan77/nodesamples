@@ -1619,9 +1619,10 @@
         "id": "a217bfdc32724f4e",
         "type": "ui_table",
         "z": "99999b8a6931f0b2",
+        "d": true,
         "group": "5ad478847c2d5ed0",
         "name": "Srinagar Collectors",
-        "order": 6,
+        "order": 7,
         "width": 5,
         "height": 6,
         "columns": [],
@@ -1635,9 +1636,10 @@
         "id": "6741d7d9949222f3",
         "type": "ui_table",
         "z": "99999b8a6931f0b2",
+        "d": true,
         "group": "5ad478847c2d5ed0",
         "name": "Jammu Collectors",
-        "order": 5,
+        "order": 6,
         "width": 5,
         "height": 6,
         "columns": [],
@@ -1753,7 +1755,9 @@
         "wires": [
             [
                 "055894d9e16f7b19",
-                "1b5a13f28dda3cbe"
+                "1b5a13f28dda3cbe",
+                "8bf0dfc7e1cf78e2",
+                "9cbda45a06d2c0ea"
             ]
         ]
     },
@@ -1862,7 +1866,7 @@
         "type": "file in",
         "z": "99999b8a6931f0b2",
         "name": "",
-        "filename": "/root/jlab/report.csv",
+        "filename": "D:\\jlab\\report.csv",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
@@ -1993,7 +1997,8 @@
         "y": 40,
         "wires": [
             [
-                "6741d7d9949222f3"
+                "6741d7d9949222f3",
+                "801c10cf5cf00e7b"
             ]
         ]
     },
@@ -2020,7 +2025,8 @@
         "y": 100,
         "wires": [
             [
-                "a217bfdc32724f4e"
+                "a217bfdc32724f4e",
+                "31508b95008cd276"
             ]
         ]
     },
@@ -2111,8 +2117,7 @@
         "y": 280,
         "wires": [
             [
-                "1b5a13f28dda3cbe",
-                "252f8e0bfb55800a"
+                "1b5a13f28dda3cbe"
             ]
         ]
     },
@@ -2131,42 +2136,9 @@
         "y": 340,
         "wires": [
             [
-                "323655072d07aa46",
                 "055894d9e16f7b19"
             ]
         ]
-    },
-    {
-        "id": "323655072d07aa46",
-        "type": "debug",
-        "z": "99999b8a6931f0b2",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1350,
-        "y": 400,
-        "wires": []
-    },
-    {
-        "id": "252f8e0bfb55800a",
-        "type": "debug",
-        "z": "99999b8a6931f0b2",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1250,
-        "y": 260,
-        "wires": []
     },
     {
         "id": "96b2f69e17f51a17",
@@ -2617,6 +2589,149 @@
             [
                 "ebc234be.d53fe8"
             ]
+        ]
+    },
+    {
+        "id": "8bf0dfc7e1cf78e2",
+        "type": "ui_chart",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "group": "5ad478847c2d5ed0",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "bar",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1450,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "801c10cf5cf00e7b",
+        "type": "function",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "func": "fseries=msg.payload.filter(function (x){if( x[\"Collector\"]!='Total Meters'){return x}});\nnseries=fseries.reduce(function(acc,curr){if(curr[\"Collector\"]!=\"Total Meters\"){x=curr[\"Collector\"];acc.push(x.substring(x.indexOf(\"_\")+1,x.lastIndexOf(\"_\")));return acc}},[]);\nndata=fseries.reduce(function(acc,curr){if(curr[\"Collector\"]!=\"Total Meters\"){acc.push([curr[\"Count\"]]);return acc}},[]);\nmsg.payload=[{\"series\":nseries,\"data\":ndata,\"labels\":[\"Jammu\"]}];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1440,
+        "y": 120,
+        "wires": [
+            [
+                "8bf0dfc7e1cf78e2",
+                "41328df58810c985"
+            ]
+        ]
+    },
+    {
+        "id": "41328df58810c985",
+        "type": "debug",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1410,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "31508b95008cd276",
+        "type": "function",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "func": "fseries=msg.payload.filter(function (x){if( x[\"Collector\"]!='Total Meters'){return x}});\nnseries=fseries.reduce(function(acc,curr){if(curr[\"Collector\"]!=\"Total Meters\"){x=curr[\"Collector\"];acc.push(x.substring(x.indexOf(\"_\")+1,x.lastIndexOf(\"_\")));return acc}},[]);\nndata=fseries.reduce(function(acc,curr){if(curr[\"Collector\"]!=\"Total Meters\"){acc.push([curr[\"Count\"]]);return acc}},[]);\nmsg.payload=[{\"series\":nseries,\"data\":ndata,\"labels\":[\"Srinagar\"]}];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1180,
+        "y": 260,
+        "wires": [
+            [
+                "9cbda45a06d2c0ea"
+            ]
+        ]
+    },
+    {
+        "id": "9cbda45a06d2c0ea",
+        "type": "ui_chart",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "group": "5ad478847c2d5ed0",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "bar",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": true,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1310,
+        "y": 380,
+        "wires": [
+            []
         ]
     }
 ]
