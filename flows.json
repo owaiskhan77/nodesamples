@@ -275,23 +275,13 @@
     {
         "id": "b1376e2c4dfa8b6e",
         "type": "ui_group",
-        "name": "CC & B Status",
+        "name": "CC & B Consumer Count",
         "tab": "afea3e73df80298e",
         "order": 3,
         "disp": true,
-        "width": 20,
+        "width": "20",
         "collapse": false,
         "className": ""
-    },
-    {
-        "id": "f8f168874347c677",
-        "type": "ui_spacer",
-        "z": "99999b8a6931f0b2",
-        "name": "spacer",
-        "group": "5ad478847c2d5ed0",
-        "order": 1,
-        "width": 10,
-        "height": 1
     },
     {
         "id": "918eaa1814b8248e",
@@ -1569,7 +1559,7 @@
         "z": "99999b8a6931f0b2",
         "name": "",
         "group": "5ad478847c2d5ed0",
-        "order": 4,
+        "order": 3,
         "width": 10,
         "height": 1,
         "passthru": false,
@@ -1581,7 +1571,7 @@
         "icon": "",
         "payload": "a",
         "payloadType": "str",
-        "topic": "select * from (select substr(z.adhoc_char_val,1,6) region,cmtr.badge_nbr,to_char(start_dttm,'mm-yyyy') month from cisadm.ci_sa_sp c,cisadm.CI_SP_MTR_HIST SMH,cisadm.ci_mtr_config mcfg,cisadm.ci_mr mr,cisadm.ci_mtr cmtr,cisadm.ci_sa x,cisadm.ci_acct_char y,cisadm.ci_acct_char z where c.sp_id=smh.sp_id and c.sa_id=x.sa_id and x.acct_id=y.acct_id and y.acct_id=z.acct_id and smh.mtr_config_id=mcfg.mtr_config_id and mcfg.mtr_config_id=mr.mtr_config_id and c.start_dttm=(select max(start_dttm) from cisadm.ci_sa_sp where sa_id=c.sa_id and start_mr_id <> ' ') and c.START_MR_ID=MR.MR_ID and mcfg.mtr_id=cmtr.mtr_id and y.char_type_cd='CM-SMART' and z.char_type_cd='CC' and substr(z.adhoc_char_val,1,2)='02') pivot ( count(badge_nbr) for month in ('11-2021','12-2021','01-2022','02-2022','03-2022','04-2022','05-2022','06-2022','07-2022','08-2022'))",
+        "topic": "select * from (select substr(z.adhoc_char_val,1,6) region,w.subdivision,cmtr.badge_nbr,to_char(start_dttm,'mm-yyyy') month from cisadm.ci_sa_sp c,cisadm.CI_SP_MTR_HIST SMH,cisadm.ci_mtr_config mcfg,cisadm.ci_mr mr,cisadm.ci_mtr cmtr,cisadm.ci_sa x,cisadm.ci_acct_char y,cisadm.ci_acct_char z,cisadm.xx_sdo w where c.sp_id=smh.sp_id and c.sa_id=x.sa_id and x.acct_id=y.acct_id and y.acct_id=z.acct_id and smh.mtr_config_id=mcfg.mtr_config_id and mcfg.mtr_config_id=mr.mtr_config_id and c.start_dttm=(select max(start_dttm) from cisadm.ci_sa_sp where sa_id=c.sa_id and start_mr_id <> ' ') and c.START_MR_ID=MR.MR_ID and mcfg.mtr_id=cmtr.mtr_id and y.char_type_cd='CM-SMART' and substr(z.adhoc_char_val,1,6)=w.region and z.char_type_cd='CC' and substr(z.adhoc_char_val,1,2)='02') pivot ( count(badge_nbr) for month in ('11-2021','12-2021','01-2022','02-2022','03-2022','04-2022','05-2022','06-2022','07-2022','08-2022','09-2022','10-2022','11-2022')) order by 1",
         "topicType": "str",
         "x": 90,
         "y": 40,
@@ -1599,7 +1589,7 @@
         "z": "99999b8a6931f0b2",
         "name": "",
         "group": "5ad478847c2d5ed0",
-        "order": 3,
+        "order": 2,
         "width": 10,
         "height": 1,
         "passthru": true,
@@ -1631,7 +1621,7 @@
         "z": "99999b8a6931f0b2",
         "group": "5ad478847c2d5ed0",
         "name": "Srinagar Collectors",
-        "order": 7,
+        "order": 6,
         "width": 5,
         "height": 6,
         "columns": [],
@@ -1647,7 +1637,7 @@
         "z": "99999b8a6931f0b2",
         "group": "5ad478847c2d5ed0",
         "name": "Jammu Collectors",
-        "order": 6,
+        "order": 5,
         "width": 5,
         "height": 6,
         "columns": [],
@@ -1665,7 +1655,7 @@
         "label": "Select Last Billable Read Days",
         "tooltip": "",
         "group": "5ad478847c2d5ed0",
-        "order": 2,
+        "order": 1,
         "width": 10,
         "height": 1,
         "wrap": false,
@@ -1773,7 +1763,7 @@
         "z": "99999b8a6931f0b2",
         "group": "5ad478847c2d5ed0",
         "name": "ProgressBar",
-        "order": 5,
+        "order": 4,
         "width": 10,
         "height": 1,
         "format": "<style>\n    .w3-border {\n        border: 1px solid #ccc!important;\n    }\n    .w3-green, .w3-hover-green:hover {\n        color: #fff!important;\n        background-color: #4CAF50!important;\n    }\n</style>\n<div>\n    <div class=\"w3-border\">\n      <div class=\"w3-green\" style=\"height:5px; width:{{msg.counter}}%\"></div>\n        <div class=\"progress\">\n      <div class=\"determinate\" style=\"width: 70%\"></div>\n        </div>\n</div>\n</div>",
@@ -1894,8 +1884,8 @@
         "group": "75f5394b01c07d88",
         "order": 2,
         "width": 5,
-        "height": 11,
-        "label": "Read Availability Status",
+        "height": 10,
+        "label": "Weekly Read Availability Status",
         "chartType": "bar",
         "legend": "true",
         "xformat": "HH:mm:ss",
@@ -1924,7 +1914,7 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 1090,
+        "x": 1110,
         "y": 520,
         "wires": [
             []
@@ -2070,7 +2060,7 @@
         "group": "75f5394b01c07d88",
         "order": 1,
         "width": 5,
-        "height": 11,
+        "height": 10,
         "label": "All Meter Details",
         "chartType": "bar",
         "legend": "true",
@@ -2184,11 +2174,11 @@
         "z": "99999b8a6931f0b2",
         "name": "oracledb",
         "server": "f18ba21cdc1239d4",
-        "x": 840,
-        "y": 740,
+        "x": 900,
+        "y": 680,
         "wires": [
             [
-                "0850539410f90d7a"
+                "8e6077c401e0db95"
             ]
         ]
     },
@@ -2198,9 +2188,9 @@
         "z": "99999b8a6931f0b2",
         "group": "b1376e2c4dfa8b6e",
         "name": "MonthlyBilling",
-        "order": 2,
+        "order": 1,
         "width": 20,
-        "height": 9,
+        "height": 10,
         "columns": [],
         "outputs": 0,
         "cts": false,
@@ -2244,11 +2234,30 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 920,
+        "x": 720,
         "y": 900,
         "wires": [
             [
-                "90747004d28d6bc7",
+                "90747004d28d6bc7"
+            ]
+        ]
+    },
+    {
+        "id": "8e6077c401e0db95",
+        "type": "function",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 820,
+        "wires": [
+            [
+                "0850539410f90d7a",
                 "0b2a5879a6d2dc13"
             ]
         ]
