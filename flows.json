@@ -103,10 +103,10 @@
             }
         },
         "site": {
-            "name": "Node-RED Dashboard",
+            "name": "Smart Meter Dashboard",
             "hideToolbar": "false",
             "allowSwipe": "false",
-            "lockMenu": "true",
+            "lockMenu": "icon",
             "allowTempTheme": "true",
             "dateFormat": "DD/MM/YYYY",
             "sizes": {
@@ -136,7 +136,7 @@
         "name": "Configure Days",
         "tab": "afea3e73df80298e",
         "order": 1,
-        "disp": true,
+        "disp": false,
         "width": "10",
         "collapse": false,
         "className": ""
@@ -147,8 +147,8 @@
         "name": "Graphs",
         "tab": "afea3e73df80298e",
         "order": 2,
-        "disp": true,
-        "width": "10",
+        "disp": false,
+        "width": "12",
         "collapse": false,
         "className": ""
     },
@@ -268,20 +268,10 @@
         "name": "CC & B Status",
         "tab": "afea3e73df80298e",
         "order": 3,
-        "disp": true,
-        "width": 20,
+        "disp": false,
+        "width": "20",
         "collapse": false,
         "className": ""
-    },
-    {
-        "id": "f8f168874347c677",
-        "type": "ui_spacer",
-        "z": "99999b8a6931f0b2",
-        "name": "spacer",
-        "group": "5ad478847c2d5ed0",
-        "order": 1,
-        "width": 10,
-        "height": 1
     },
     {
         "id": "f18ba21cdc1239d4",
@@ -1569,7 +1559,7 @@
         "z": "99999b8a6931f0b2",
         "name": "",
         "group": "5ad478847c2d5ed0",
-        "order": 4,
+        "order": 3,
         "width": 10,
         "height": 1,
         "passthru": false,
@@ -1599,7 +1589,7 @@
         "z": "99999b8a6931f0b2",
         "name": "",
         "group": "5ad478847c2d5ed0",
-        "order": 3,
+        "order": 2,
         "width": 10,
         "height": 1,
         "passthru": true,
@@ -1632,7 +1622,7 @@
         "d": true,
         "group": "5ad478847c2d5ed0",
         "name": "Srinagar Collectors",
-        "order": 7,
+        "order": 8,
         "width": 5,
         "height": 6,
         "columns": [],
@@ -1649,7 +1639,7 @@
         "d": true,
         "group": "5ad478847c2d5ed0",
         "name": "Jammu Collectors",
-        "order": 6,
+        "order": 7,
         "width": 5,
         "height": 6,
         "columns": [],
@@ -1667,7 +1657,7 @@
         "label": "Select Last Billable Read Days",
         "tooltip": "",
         "group": "5ad478847c2d5ed0",
-        "order": 2,
+        "order": 1,
         "width": 10,
         "height": 1,
         "wrap": false,
@@ -1777,7 +1767,7 @@
         "z": "99999b8a6931f0b2",
         "group": "5ad478847c2d5ed0",
         "name": "ProgressBar",
-        "order": 5,
+        "order": 6,
         "width": 10,
         "height": 1,
         "format": "<style>\n    .w3-border {\n        border: 1px solid #ccc!important;\n    }\n    .w3-green, .w3-hover-green:hover {\n        color: #fff!important;\n        background-color: #4CAF50!important;\n    }\n</style>\n<div>\n    <div class=\"w3-border\">\n      <div class=\"w3-green\" style=\"height:5px; width:{{msg.counter}}%\"></div>\n        <div class=\"progress\">\n      <div class=\"determinate\" style=\"width: 70%\"></div>\n        </div>\n</div>\n</div>",
@@ -1898,7 +1888,7 @@
         "group": "75f5394b01c07d88",
         "order": 2,
         "width": 5,
-        "height": 11,
+        "height": "15",
         "label": "Read Availability Status",
         "chartType": "bar",
         "legend": "true",
@@ -1967,7 +1957,7 @@
         "type": "function",
         "z": "99999b8a6931f0b2",
         "name": "",
-        "func": "var jtrim={};\nvar ktrim={};\nvar jtrimlist=[];\nvar ktrimlist=[];\nvar sn=0;\nvar dt=flow.get('days');\nfor (var i in msg.payload)\n{\n[day, month, year]=msg.payload[i]['Last Billable Read'].split(\" \")[0].split(\"-\");\nif(Math.floor((new Date()-new Date([year,month,day].join('-')))/86400000) <= dt)\n{\nswitch (msg.payload[i].Meter.substring(0,1))\n\t{\n\tcase '3':\n\tif(jtrim[msg.payload[i].Collector]){jtrim[msg.payload[i].Collector]+=1;}\n\telse {jtrim[msg.payload[i].Collector]=1;}\n\tbreak;\n\tcase '4':\n\tif(ktrim[msg.payload[i].Collector]){ktrim[msg.payload[i].Collector]+=1;}\n\telse {ktrim[msg.payload[i].Collector]=1;}\n\tbreak;\n\t}\t\n}\n}\nfor (i in jtrim){jtrimlist.push({Sno:++sn,Collector:i,Count:jtrim[i]})}\nsn=0;\nfor (i in ktrim){ktrimlist.push({Sno:++sn,Collector:i,Count:ktrim[i]})}\t\nvar jtotal=0;\nvar ktotal=0;\nfor (i in jtrimlist){jtotal=jtotal+jtrimlist[i].Count}\njtrimlist.push({Collector:\"Total Meters\",Count:jtotal});\nfor (i in ktrimlist){ktotal=ktotal+ktrimlist[i].Count}\nktrimlist.push({Collector:\"Total Meters\",Count:ktotal});\nreturn [[{jtrimlist}],[{ktrimlist}]]\n",
+        "func": "var jtrim={};\nvar ktrim={};\nvar jtrimlist=[];\nvar ktrimlist=[];\nvar sn=0;\nvar dt=flow.get('days');\nfor (var i in msg.payload)\n{\n[day, month, year]=msg.payload[i]['Last Billable Read'].split(\" \")[0].split(\"-\");\nif(Math.floor((new Date()-new Date([year,month,day].join('-')))/86400000) <= dt)\n{\nswitch (msg.payload[i].Meter.substring(0,1))\n\t{\n\tcase '3':\n\tif(jtrim[msg.payload[i].Collector]){jtrim[msg.payload[i].Collector]+=1;}\n\telse {jtrim[msg.payload[i].Collector]=1;}\n\tbreak;\n\tcase '4':\n\tif(ktrim[msg.payload[i].Collector]){ktrim[msg.payload[i].Collector]+=1;}\n\telse {ktrim[msg.payload[i].Collector]=1;}\n\tbreak;\n\t}\t\n}\n}\nfor (i in jtrim){jtrimlist.push({Sno:++sn,Collector:i,Count:jtrim[i]})}\nsn=0;\nfor (i in ktrim){ktrimlist.push({Sno:++sn,Collector:i,Count:ktrim[i]})}\t\nvar jtotal=0;\nvar ktotal=0;\nfor (i in jtrimlist){jtotal=jtotal+jtrimlist[i].Count}\njtrimlist.push({Collector:\"Total Meters\",Count:jtotal});\nglobal.set('jcc',jtotal);\nfor (i in ktrimlist){ktotal=ktotal+ktrimlist[i].Count}\nktrimlist.push({Collector:\"Total Meters\",Count:ktotal});\nglobal.set('kcc',ktotal);\nreturn [[{jtrimlist}],[{ktrimlist}]]\n",
         "outputs": 2,
         "noerr": 0,
         "initialize": "",
@@ -1977,10 +1967,12 @@
         "y": 40,
         "wires": [
             [
-                "6f2409d0a5ac99c1"
+                "6f2409d0a5ac99c1",
+                "3aa1e8661c3e4008"
             ],
             [
-                "9f910944ef083225"
+                "9f910944ef083225",
+                "e0bcc72906433e7f"
             ]
         ]
     },
@@ -2076,7 +2068,7 @@
         "group": "75f5394b01c07d88",
         "order": 1,
         "width": 5,
-        "height": 11,
+        "height": "15",
         "label": "All Meter Details",
         "chartType": "bar",
         "legend": "true",
@@ -2170,7 +2162,7 @@
         "z": "99999b8a6931f0b2",
         "group": "b1376e2c4dfa8b6e",
         "name": "MonthlyBilling",
-        "order": 2,
+        "order": 1,
         "width": 20,
         "height": 9,
         "columns": [],
@@ -2231,10 +2223,10 @@
         "z": "99999b8a6931f0b2",
         "name": "",
         "group": "5ad478847c2d5ed0",
-        "order": 7,
-        "width": 0,
-        "height": 0,
-        "label": "chart",
+        "order": 9,
+        "width": "10",
+        "height": "5",
+        "label": "Jammu Coll",
         "chartType": "bar",
         "legend": "false",
         "xformat": "HH:mm:ss",
@@ -2263,7 +2255,7 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 1450,
+        "x": 1470,
         "y": 40,
         "wires": [
             []
@@ -2284,26 +2276,9 @@
         "y": 120,
         "wires": [
             [
-                "8bf0dfc7e1cf78e2",
-                "41328df58810c985"
+                "8bf0dfc7e1cf78e2"
             ]
         ]
-    },
-    {
-        "id": "41328df58810c985",
-        "type": "debug",
-        "z": "99999b8a6931f0b2",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1410,
-        "y": 300,
-        "wires": []
     },
     {
         "id": "31508b95008cd276",
@@ -2330,10 +2305,10 @@
         "z": "99999b8a6931f0b2",
         "name": "",
         "group": "5ad478847c2d5ed0",
-        "order": 7,
-        "width": 0,
-        "height": 0,
-        "label": "chart",
+        "order": 10,
+        "width": "10",
+        "height": "5",
+        "label": "Kashmir Coll",
         "chartType": "bar",
         "legend": "false",
         "xformat": "HH:mm:ss",
@@ -2362,10 +2337,98 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 1310,
+        "x": 1330,
         "y": 380,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "6ce5599a6d76f540",
+        "type": "ui_text",
+        "z": "99999b8a6931f0b2",
+        "group": "5ad478847c2d5ed0",
+        "order": 4,
+        "width": "5",
+        "height": "1",
+        "name": "",
+        "label": "Jammu Count",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1660,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "f982fb22fe31ceb8",
+        "type": "ui_text",
+        "z": "99999b8a6931f0b2",
+        "group": "5ad478847c2d5ed0",
+        "order": 4,
+        "width": "5",
+        "height": "1",
+        "name": "",
+        "label": "Kashmir Count",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1680,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "3aa1e8661c3e4008",
+        "type": "change",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$globalContext(\"jcc\")",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1480,
+        "y": 160,
+        "wires": [
+            [
+                "6ce5599a6d76f540"
+            ]
+        ]
+    },
+    {
+        "id": "e0bcc72906433e7f",
+        "type": "change",
+        "z": "99999b8a6931f0b2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$globalContext(\"kcc\")",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1440,
+        "y": 280,
+        "wires": [
+            [
+                "f982fb22fe31ceb8"
+            ]
         ]
     },
     {
